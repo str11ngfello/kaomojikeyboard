@@ -1,0 +1,590 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DC5F430F1998621B0077BF33 /* KeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC5F430E1998621B0077BF33 /* KeyboardView.xib */; };
+		DC5F43121998663F0077BF33 /* Keyboardview.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5F43111998663F0077BF33 /* Keyboardview.m */; };
+		DC5F431519986DA90077BF33 /* ADLivelyCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5F431419986DA90077BF33 /* ADLivelyCollectionView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DC5F4319199870BC0077BF33 /* LDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5F4317199870BC0077BF33 /* LDCollectionViewCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DC5F431A199870BC0077BF33 /* LDCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC5F4318199870BC0077BF33 /* LDCollectionViewCell.xib */; };
+		DC639AA219985DBF00ED1449 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC639AA119985DBF00ED1449 /* main.m */; };
+		DC639AA519985DBF00ED1449 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DC639AA419985DBF00ED1449 /* AppDelegate.m */; };
+		DC639AA819985DBF00ED1449 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC639AA719985DBF00ED1449 /* ViewController.m */; };
+		DC639AAB19985DBF00ED1449 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC639AA919985DBF00ED1449 /* Main.storyboard */; };
+		DC639AAD19985DBF00ED1449 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC639AAC19985DBF00ED1449 /* Images.xcassets */; };
+		DC639AB919985DBF00ED1449 /* kaomojikeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DC639AB819985DBF00ED1449 /* kaomojikeyboardTests.m */; };
+		DC639ACC19985E3800ED1449 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC639ACB19985E3800ED1449 /* KeyboardViewController.m */; };
+		DC639ACF19985E3800ED1449 /* keyboardext.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DC639AC619985E3800ED1449 /* keyboardext.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DC639AB319985DBF00ED1449 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC639A9419985DBF00ED1449 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC639A9B19985DBF00ED1449;
+			remoteInfo = kaomojikeyboard;
+		};
+		DC639ACD19985E3800ED1449 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC639A9419985DBF00ED1449 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC639AC519985E3800ED1449;
+			remoteInfo = keyboardext;
+		};
+		DC639AD019985E3800ED1449 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC639A9419985DBF00ED1449 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC639AC519985E3800ED1449;
+			remoteInfo = keyboardext;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DC639AD519985E3800ED1449 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DC639ACF19985E3800ED1449 /* keyboardext.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		DC5F430E1998621B0077BF33 /* KeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardView.xib; sourceTree = "<group>"; };
+		DC5F43101998663F0077BF33 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardView.h; sourceTree = "<group>"; };
+		DC5F43111998663F0077BF33 /* Keyboardview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Keyboardview.m; sourceTree = "<group>"; };
+		DC5F431319986DA90077BF33 /* ADLivelyCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADLivelyCollectionView.h; sourceTree = "<group>"; };
+		DC5F431419986DA90077BF33 /* ADLivelyCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADLivelyCollectionView.m; sourceTree = "<group>"; };
+		DC5F4316199870BC0077BF33 /* LDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDCollectionViewCell.h; sourceTree = "<group>"; };
+		DC5F4317199870BC0077BF33 /* LDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LDCollectionViewCell.m; sourceTree = "<group>"; };
+		DC5F4318199870BC0077BF33 /* LDCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LDCollectionViewCell.xib; sourceTree = "<group>"; };
+		DC639A9C19985DBF00ED1449 /* kaomojikeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kaomojikeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC639AA019985DBF00ED1449 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC639AA119985DBF00ED1449 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DC639AA319985DBF00ED1449 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DC639AA419985DBF00ED1449 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DC639AA619985DBF00ED1449 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DC639AA719985DBF00ED1449 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DC639AAA19985DBF00ED1449 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DC639AAC19985DBF00ED1449 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DC639AB219985DBF00ED1449 /* kaomojikeyboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = kaomojikeyboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC639AB719985DBF00ED1449 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC639AB819985DBF00ED1449 /* kaomojikeyboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kaomojikeyboardTests.m; sourceTree = "<group>"; };
+		DC639AC619985E3800ED1449 /* keyboardext.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = keyboardext.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC639AC919985E3800ED1449 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC639ACA19985E3800ED1449 /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		DC639ACB19985E3800ED1449 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC639A9919985DBF00ED1449 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC639AAF19985DBF00ED1449 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC639AC319985E3800ED1449 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DC639A9319985DBF00ED1449 = {
+			isa = PBXGroup;
+			children = (
+				DC639A9E19985DBF00ED1449 /* kaomojikeyboard */,
+				DC639AB519985DBF00ED1449 /* kaomojikeyboardTests */,
+				DC639AC719985E3800ED1449 /* keyboardext */,
+				DC639A9D19985DBF00ED1449 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DC639A9D19985DBF00ED1449 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC639A9C19985DBF00ED1449 /* kaomojikeyboard.app */,
+				DC639AB219985DBF00ED1449 /* kaomojikeyboardTests.xctest */,
+				DC639AC619985E3800ED1449 /* keyboardext.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC639A9E19985DBF00ED1449 /* kaomojikeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				DC639AA319985DBF00ED1449 /* AppDelegate.h */,
+				DC639AA419985DBF00ED1449 /* AppDelegate.m */,
+				DC639AA619985DBF00ED1449 /* ViewController.h */,
+				DC639AA719985DBF00ED1449 /* ViewController.m */,
+				DC639AA919985DBF00ED1449 /* Main.storyboard */,
+				DC639AAC19985DBF00ED1449 /* Images.xcassets */,
+				DC639A9F19985DBF00ED1449 /* Supporting Files */,
+			);
+			path = kaomojikeyboard;
+			sourceTree = "<group>";
+		};
+		DC639A9F19985DBF00ED1449 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC639AA019985DBF00ED1449 /* Info.plist */,
+				DC639AA119985DBF00ED1449 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DC639AB519985DBF00ED1449 /* kaomojikeyboardTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC639AB819985DBF00ED1449 /* kaomojikeyboardTests.m */,
+				DC639AB619985DBF00ED1449 /* Supporting Files */,
+			);
+			path = kaomojikeyboardTests;
+			sourceTree = "<group>";
+		};
+		DC639AB619985DBF00ED1449 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC639AB719985DBF00ED1449 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DC639AC719985E3800ED1449 /* keyboardext */ = {
+			isa = PBXGroup;
+			children = (
+				DC5F4316199870BC0077BF33 /* LDCollectionViewCell.h */,
+				DC5F4317199870BC0077BF33 /* LDCollectionViewCell.m */,
+				DC5F4318199870BC0077BF33 /* LDCollectionViewCell.xib */,
+				DC5F431319986DA90077BF33 /* ADLivelyCollectionView.h */,
+				DC5F431419986DA90077BF33 /* ADLivelyCollectionView.m */,
+				DC639ACA19985E3800ED1449 /* KeyboardViewController.h */,
+				DC639ACB19985E3800ED1449 /* KeyboardViewController.m */,
+				DC5F43101998663F0077BF33 /* KeyboardView.h */,
+				DC5F43111998663F0077BF33 /* Keyboardview.m */,
+				DC5F430E1998621B0077BF33 /* KeyboardView.xib */,
+				DC639AC819985E3800ED1449 /* Supporting Files */,
+			);
+			path = keyboardext;
+			sourceTree = "<group>";
+		};
+		DC639AC819985E3800ED1449 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DC639AC919985E3800ED1449 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC639A9B19985DBF00ED1449 /* kaomojikeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC639ABC19985DBF00ED1449 /* Build configuration list for PBXNativeTarget "kaomojikeyboard" */;
+			buildPhases = (
+				DC639A9819985DBF00ED1449 /* Sources */,
+				DC639A9919985DBF00ED1449 /* Frameworks */,
+				DC639A9A19985DBF00ED1449 /* Resources */,
+				DC639AD519985E3800ED1449 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC639ACE19985E3800ED1449 /* PBXTargetDependency */,
+				DC639AD119985E3800ED1449 /* PBXTargetDependency */,
+			);
+			name = kaomojikeyboard;
+			productName = kaomojikeyboard;
+			productReference = DC639A9C19985DBF00ED1449 /* kaomojikeyboard.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DC639AB119985DBF00ED1449 /* kaomojikeyboardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC639ABF19985DBF00ED1449 /* Build configuration list for PBXNativeTarget "kaomojikeyboardTests" */;
+			buildPhases = (
+				DC639AAE19985DBF00ED1449 /* Sources */,
+				DC639AAF19985DBF00ED1449 /* Frameworks */,
+				DC639AB019985DBF00ED1449 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC639AB419985DBF00ED1449 /* PBXTargetDependency */,
+			);
+			name = kaomojikeyboardTests;
+			productName = kaomojikeyboardTests;
+			productReference = DC639AB219985DBF00ED1449 /* kaomojikeyboardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DC639AC519985E3800ED1449 /* keyboardext */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC639AD219985E3800ED1449 /* Build configuration list for PBXNativeTarget "keyboardext" */;
+			buildPhases = (
+				DC639AC219985E3800ED1449 /* Sources */,
+				DC639AC319985E3800ED1449 /* Frameworks */,
+				DC639AC419985E3800ED1449 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = keyboardext;
+			productName = keyboardext;
+			productReference = DC639AC619985E3800ED1449 /* keyboardext.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC639A9419985DBF00ED1449 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Seventh Night Studios";
+				TargetAttributes = {
+					DC639A9B19985DBF00ED1449 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					DC639AB119985DBF00ED1449 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = DC639A9B19985DBF00ED1449;
+					};
+					DC639AC519985E3800ED1449 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
+			};
+			buildConfigurationList = DC639A9719985DBF00ED1449 /* Build configuration list for PBXProject "kaomojikeyboard" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DC639A9319985DBF00ED1449;
+			productRefGroup = DC639A9D19985DBF00ED1449 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC639A9B19985DBF00ED1449 /* kaomojikeyboard */,
+				DC639AB119985DBF00ED1449 /* kaomojikeyboardTests */,
+				DC639AC519985E3800ED1449 /* keyboardext */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC639A9A19985DBF00ED1449 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC639AAB19985DBF00ED1449 /* Main.storyboard in Resources */,
+				DC639AAD19985DBF00ED1449 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC639AB019985DBF00ED1449 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC639AC419985E3800ED1449 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC5F431A199870BC0077BF33 /* LDCollectionViewCell.xib in Resources */,
+				DC5F430F1998621B0077BF33 /* KeyboardView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC639A9819985DBF00ED1449 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC639AA819985DBF00ED1449 /* ViewController.m in Sources */,
+				DC639AA519985DBF00ED1449 /* AppDelegate.m in Sources */,
+				DC639AA219985DBF00ED1449 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC639AAE19985DBF00ED1449 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC639AB919985DBF00ED1449 /* kaomojikeyboardTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC639AC219985E3800ED1449 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC5F4319199870BC0077BF33 /* LDCollectionViewCell.m in Sources */,
+				DC639ACC19985E3800ED1449 /* KeyboardViewController.m in Sources */,
+				DC5F431519986DA90077BF33 /* ADLivelyCollectionView.m in Sources */,
+				DC5F43121998663F0077BF33 /* Keyboardview.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC639AB419985DBF00ED1449 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC639A9B19985DBF00ED1449 /* kaomojikeyboard */;
+			targetProxy = DC639AB319985DBF00ED1449 /* PBXContainerItemProxy */;
+		};
+		DC639ACE19985E3800ED1449 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC639AC519985E3800ED1449 /* keyboardext */;
+			targetProxy = DC639ACD19985E3800ED1449 /* PBXContainerItemProxy */;
+		};
+		DC639AD119985E3800ED1449 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC639AC519985E3800ED1449 /* keyboardext */;
+			targetProxy = DC639AD019985E3800ED1449 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DC639AA919985DBF00ED1449 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC639AAA19985DBF00ED1449 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DC639ABA19985DBF00ED1449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC639ABB19985DBF00ED1449 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DC639ABD19985DBF00ED1449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = kaomojikeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DC639ABE19985DBF00ED1449 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = kaomojikeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DC639AC019985DBF00ED1449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = kaomojikeyboardTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kaomojikeyboard.app/kaomojikeyboard";
+			};
+			name = Debug;
+		};
+		DC639AC119985DBF00ED1449 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = kaomojikeyboardTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/kaomojikeyboard.app/kaomojikeyboard";
+			};
+			name = Release;
+		};
+		DC639AD319985E3800ED1449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = keyboardext/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DC639AD419985E3800ED1449 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = keyboardext/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC639A9719985DBF00ED1449 /* Build configuration list for PBXProject "kaomojikeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC639ABA19985DBF00ED1449 /* Debug */,
+				DC639ABB19985DBF00ED1449 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC639ABC19985DBF00ED1449 /* Build configuration list for PBXNativeTarget "kaomojikeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC639ABD19985DBF00ED1449 /* Debug */,
+				DC639ABE19985DBF00ED1449 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC639ABF19985DBF00ED1449 /* Build configuration list for PBXNativeTarget "kaomojikeyboardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC639AC019985DBF00ED1449 /* Debug */,
+				DC639AC119985DBF00ED1449 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC639AD219985E3800ED1449 /* Build configuration list for PBXNativeTarget "keyboardext" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC639AD319985E3800ED1449 /* Debug */,
+				DC639AD419985E3800ED1449 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DC639A9419985DBF00ED1449 /* Project object */;
+}

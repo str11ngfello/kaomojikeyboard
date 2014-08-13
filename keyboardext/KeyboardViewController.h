@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardViewController : UIInputViewController <UICollectionViewDataSource,UICollectionViewDelegate>
 
+
+
+@interface KeyboardViewController : UIInputViewController <UICollectionViewDataSource,UICollectionViewDelegate>
 -(void)clear;
 @end

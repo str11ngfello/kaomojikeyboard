@@ -19,6 +19,8 @@
     return self;
 }
 
+
+
 -(void)selectionEffect
 {
   /*  UILabel* tempLabel = [[UILabel alloc] initWithFrame:_textLabel.frame];

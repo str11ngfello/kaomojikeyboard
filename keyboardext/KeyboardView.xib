@@ -10,24 +10,37 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sa4-ue-rqL">
-                    <rect key="frame" x="0.0" y="169" width="72" height="48"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <state key="normal" title="Next">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="nextKeyboard:" destination="iN0-l3-epB" eventType="touchUpInside" id="afb-JA-8Y0"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0Nm-cE-GzU">
-                    <rect key="frame" x="249" y="163" width="80" height="60"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Clear">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Nm-cE-GzU">
+                    <rect key="frame" x="270" y="161" width="57" height="65"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <gestureRecognizers/>
+                    <state key="normal" image="delete.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="clear:" destination="iN0-l3-epB" eventType="touchUpInside" id="kFf-sD-hCp"/>
+                        <outletCollection property="gestureRecognizers" destination="Ych-pK-dGf" appends="YES" id="cpc-0i-kO2"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5bb-l2-6Ab">
+                    <rect key="frame" x="32" y="161" width="57" height="65"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <gestureRecognizers/>
+                    <state key="normal" image="delete.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="link:" destination="iN0-l3-epB" eventType="touchUpInside" id="ek5-Ay-IaE"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Sa4-ue-rqL">
+                    <rect key="frame" x="-7" y="161" width="56" height="65"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <state key="normal" image="globe.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="nextKeyboard:" destination="iN0-l3-epB" eventType="touchUpInside" id="afb-JA-8Y0"/>
                     </connections>
                 </button>
             </subviews>
@@ -40,7 +53,16 @@
             </connections>
             <point key="canvasLocation" x="-201" y="64"/>
         </view>
+        <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Ych-pK-dGf">
+            <connections>
+                <action selector="holdDownDelete:" destination="iN0-l3-epB" id="6cx-hu-Ysx"/>
+            </connections>
+        </pongPressGestureRecognizer>
     </objects>
+    <resources>
+        <image name="delete.png" width="37" height="40"/>
+        <image name="globe.png" width="35" height="40"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -11,6 +11,6 @@
 
 
 
-@interface KeyboardViewController : UIInputViewController <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface KeyboardViewController : UIInputViewController <UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 -(void)clear;
 @end

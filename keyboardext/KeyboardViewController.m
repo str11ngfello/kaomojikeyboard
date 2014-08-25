@@ -224,7 +224,10 @@
     
     self.catLabel = [[TOMSMorphingLabel alloc] initWithFrame:CGRectMake(5,-4,100,30)];
     self.catLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-    self.catLabel.textColor = [UIColor darkGrayColor];
+    if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+        self.catLabel.textColor = [UIColor whiteColor];
+    else
+        self.catLabel.textColor = [UIColor darkGrayColor];
     self.catLabel.text = @"Favorites";
     [self.view addSubview:self.catLabel];
  
@@ -232,7 +235,10 @@
     self.statusLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
 
     [self.statusLabel setAutoresizingMask: UIViewAutoresizingFlexibleBottomMargin |UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    self.statusLabel.textColor = [UIColor darkGrayColor];
+    if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+        self.statusLabel.textColor = [UIColor whiteColor];
+    else
+        self.statusLabel.textColor = [UIColor darkGrayColor];
     self.statusLabel.textAlignment = NSTextAlignmentCenter;
     [self.keyboardView addSubview:self.statusLabel];
 
@@ -362,14 +368,25 @@
         {
             UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, 22)];
             label.text= [subCategories objectAtIndex:indexPath.section];
-            label.textColor = [UIColor darkGrayColor];
-            //label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.05];
+                        //label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.05];
             label.textAlignment = NSTextAlignmentCenter;
             label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
             label.tag = 100;
             label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
             [reusableview addSubview:label];
-            reusableview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.05];
+            
+            if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+            {
+                reusableview.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.2];
+                label.textColor = [UIColor whiteColor];
+            }
+            else
+            {
+                reusableview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.05];
+                label.textColor = [UIColor darkGrayColor];
+            }
+
+            
         }
         else
         {
@@ -490,7 +507,10 @@
         {
             cell.textLabel.text = @"No favorites.\nTap and hold a kaomoji to add\nas a favorite.";
             cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-            cell.textLabel.textColor = [UIColor darkGrayColor];
+            if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+                cell.textLabel.textColor = [UIColor lightGrayColor];
+            else
+                cell.textLabel.textColor = [UIColor darkGrayColor];
         }
         else
         {
@@ -499,7 +519,10 @@
             else
                 cell.textLabel.text = [favorites objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:18];
-            cell.textLabel.textColor = [UIColor blackColor];
+            if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+                cell.textLabel.textColor = [UIColor whiteColor];
+            else
+                cell.textLabel.textColor = [UIColor blackColor];
 
         }
 
@@ -512,7 +535,10 @@
         {
             cell.textLabel.text = @"No recently used.";
             cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
-            cell.textLabel.textColor = [UIColor darkGrayColor];
+            if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+                cell.textLabel.textColor = [UIColor lightGrayColor];
+            else
+                cell.textLabel.textColor = [UIColor darkGrayColor];
 
         }
         else
@@ -522,7 +548,10 @@
             else
                 cell.textLabel.text = [history objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:18];
-            cell.textLabel.textColor = [UIColor blackColor];
+            if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+                cell.textLabel.textColor = [UIColor whiteColor];
+            else
+                cell.textLabel.textColor = [UIColor blackColor];
         }
     }
     else
@@ -540,7 +569,10 @@
             cell.textLabel.text = @"";
         else
             cell.textLabel.text = [emojiArray objectAtIndex:indexPath.row];
-        cell.textLabel.textColor = [UIColor blackColor];
+        if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+            cell.textLabel.textColor = [UIColor whiteColor];
+        else
+            cell.textLabel.textColor = [UIColor blackColor];
     }
     /*UIColor * altBackgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
      cell.backgroundView.backgroundColor = [indexPath row] % 2 == 0 ? [UIColor whiteColor] : altBackgroundColor;
@@ -660,13 +692,13 @@
     self.emojiColumnWidths = @{@"Favorites":@[@200],
                                @"Recent":@[@200],
                                @"Emotions":@[@100,@100,@100,@100,@100,@100,@100],
-                               @"Actions":@[@100,@120,@120,@120,@120,@120,@200,@100,@200],
+                               @"Actions":@[@100,@120,@120,@120,@120,@120,@200,@100,@200,@200],
                                @"Characters":@[@120,@120,@120,@120,@120,@120,@120,@120,@120,@120],
                                @"Phrases":@[@200],
                                };
     
     self.emojiSubCategories = @{@"Emotions":@[@"Happy",@"Sad",@"Angry",@"Love",@"Worried",@"Shocked",@"Annoyed"],
-                                @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"Flipping the Bird",@"Whatever",@"Table Flipping"],
+                                @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"Flipping the Bird",@"Whatever",@"High Fiving",@"Table Flipping"],
                                 @"Characters":@[@"Dogs",@"Cats",@"Rabbits",@"Bears",@"Pigs",@"Monkeys",@"Devils",@"Zombies",@"Trolls",@"Flower Girls"],
                                 @"Phrases":@[@"Phrases"],
                                 };
@@ -689,7 +721,7 @@
                                 @"٩(^ᴗ^)۶",
                                 @"٩(●˙▿˙●)۶",
                                 @"(❁´◡`❁)",
-                                
+                                @"(❁◠‿‿◠❁)",
                                 ],
                            
                           @"Sad":
@@ -744,11 +776,12 @@
                                 @"(◍•﹏•)",
                                 @"( ᵒ̴̶̷᷄ д ᵒ̴̶̷᷅ )",
                                 @"(╯•﹏•╰)",],
+                           
                           @"Shocked":
                               @[
                                 @"(⊙_◎)",
                                 @"(º_o)",
-                                @"＼(●o○)ノ"
+                                @"＼(●o○)ノ",
                                 @"(Ꙩ_Ꙩ)",
                                 @"(ಠ_ಠ)",
                                 @"(۞_۞)",
@@ -814,7 +847,6 @@
                                  ],
                           @"Bears":
                               @[@"“(`(エ)´)ノ",
-                                @"(｀(エ)´)ﾉ",
                                 @"⊂(￣(工)￣)⊃",
                                 @"ʕ•͡-•ʔ",
                                 @"ʕʘ̅͜ʘ̅ʔ",
@@ -824,8 +856,8 @@
                                 @"(／(ｴ)＼)",
                                 @"(^(エ)^)",
                                 @"ʕ̡̢̡ʘ̅͟͜͡ʘ̲̅ʔ̢̡̢	",
-                                @"v.ʕʘ‿ʘʔ.v",
-                                @"＼(・｀(ｪ)・)/",
+                                @"ʕʘ‿ʘʔ",
+                                @"ʕ •ᴥ•ʔ",
                                 ],
                           @"Pigs":
                               @[@"( ´(00)`)",
@@ -882,11 +914,13 @@
                                   ],
                            @"Zombies":
                                @[@"ヘ(>_<ヘ)",
+                                 @"(ʘ෴̴͜ʘ)",
                                  @"┗( ●-﹏ ｀｡)づ",
                                  @"ヘ（。□°）ヘ",
                                  @"٩(•̤̀ᵕ•̤́๑)",
                                  @"ƪ(`▿▿▿▿´ƪ)",
                                  @"⁞⁝•ֱ̀␣̍•́⁝⁞",
+                                 @" ԅ(◝﹏◜ ԅ)",
                                  @"٩(×̯×)۶",
                                  @"(˼●̙̂ ̟ ̟̎ ̟ ̘●̂˻)",
                                  @"[¬º-°]¬",
@@ -921,6 +955,8 @@
                     
                     @"Flipping the Bird":
                         @[@"┌∩┐(◕_◕)┌∩┐",
+                          @"┌∩┐(◣_◢)┌∩┐",
+                          @"( ︶︿︶)_╭∩╮",
                           @"凸(｀0´)凸",
                           @"ಠ︵ಠ凸",
                           @"(╹◡╹)凸",
@@ -977,6 +1013,20 @@
                                  @"(-_-)ノ",
                                  @"＼( ･_･)"],
                            
+                           @"High Fiving":
+                               @[@"ヽ( ◠～◠)人(◠～◠ )ﾉ",
+                                 @"ヽ( ❛口❛)人(❛口❛ )ﾉ",
+                                 @"ヽ( ⊙ڡ⊙)人(⊙ڡ⊙ )ﾉ",
+                                 @"ヽ( ★Д★)人(★Д★ )ﾉ",
+                                 @"ヽ( ●╭╮●)人(●╭╮● )ﾉ",
+                                 @"ヽ( ^･‿･^)人(^･‿･^ )ﾉ",
+                                 @"ヽ( O▃O)人(O▃O )ﾉ",
+                                 @"ヽ( ╯∀╰)人(╯∀╰ )ﾉ",
+                                 @"ヽ( ✖_✖)人(✖_✖ )ﾉ",
+                                 @"ヽ( ❛﹏❛)人(❛﹏❛ )ﾉ",
+                                ],
+
+                           
                     @"Whatever":
                     @[
                         @" ¯\\_(ツ)_/¯",
@@ -1008,6 +1058,9 @@
                       @"ᕦ❍ᴗ❍ᕤ",
                       @"ᕦ◉▿◉ᕤ",
                       @"ᕙ(＠▽＠)ᕗ",
+                      @"ᕙ(>Д< ᕙ)",
+                      @"ᕦ(⌒⊆⌒ ᕦ)",
+                      @"ᕙ(♥‿♥ ᕙ )"
                     ],
                 
                     
@@ -1030,6 +1083,7 @@
                       @"ლ(╹◡╹ლ)",
                       @"(っ˘̩╭╮˘̩)っ",
                       @"ლ(´ڡ`ლ)",
+                      @"⊂(◉‿◉)つ",
                       @"(づ￣ ³￣)づ",
                       @"⊂((・▽・))⊃",
                       @"(づ｡◕‿‿◕｡)づ",

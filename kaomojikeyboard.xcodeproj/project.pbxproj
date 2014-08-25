@@ -24,6 +24,18 @@
 		DC639AAD19985DBF00ED1449 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC639AAC19985DBF00ED1449 /* Images.xcassets */; };
 		DC639ACC19985E3800ED1449 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC639ACB19985E3800ED1449 /* KeyboardViewController.m */; };
 		DC639ACF19985E3800ED1449 /* keyboardext.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DC639AC619985E3800ED1449 /* keyboardext.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DC7C134119A83B68004B3D79 /* CustomizerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7C134019A83B68004B3D79 /* CustomizerViewController.m */; };
+		DC7C134219A84240004B3D79 /* NSString+Morphing.h in Sources */ = {isa = PBXBuildFile; fileRef = DC10DEF419A194970027F37D /* NSString+Morphing.h */; };
+		DC7C134319A84240004B3D79 /* NSString+Morphing.m in Sources */ = {isa = PBXBuildFile; fileRef = DC10DEF519A194970027F37D /* NSString+Morphing.m */; };
+		DC7C134419A84240004B3D79 /* TOMSMorphingLabel.h in Sources */ = {isa = PBXBuildFile; fileRef = DC10DEF619A194970027F37D /* TOMSMorphingLabel.h */; };
+		DC7C134519A84240004B3D79 /* TOMSMorphingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = DC10DEF719A194970027F37D /* TOMSMorphingLabel.m */; };
+		DC7C134619A84240004B3D79 /* LDCollectionViewCell.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5F4316199870BC0077BF33 /* LDCollectionViewCell.h */; };
+		DC7C134719A84240004B3D79 /* LDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5F4317199870BC0077BF33 /* LDCollectionViewCell.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DC7C134819A84240004B3D79 /* LDCollectionViewCell.xib in Sources */ = {isa = PBXBuildFile; fileRef = DC5F4318199870BC0077BF33 /* LDCollectionViewCell.xib */; };
+		DC7C134919A84240004B3D79 /* ADLivelyCollectionView.h in Sources */ = {isa = PBXBuildFile; fileRef = DC5F431319986DA90077BF33 /* ADLivelyCollectionView.h */; };
+		DC7C134A19A84240004B3D79 /* ADLivelyCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5F431419986DA90077BF33 /* ADLivelyCollectionView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		DC7C134B19A84240004B3D79 /* KeyboardViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = DC639ACA19985E3800ED1449 /* KeyboardViewController.h */; };
+		DC7C134C19A84240004B3D79 /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC639ACB19985E3800ED1449 /* KeyboardViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +100,8 @@
 		DC639AC919985E3800ED1449 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC639ACA19985E3800ED1449 /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
 		DC639ACB19985E3800ED1449 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		DC7C133F19A83B68004B3D79 /* CustomizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizerViewController.h; sourceTree = "<group>"; };
+		DC7C134019A83B68004B3D79 /* CustomizerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizerViewController.m; sourceTree = "<group>"; };
 		DCA62EEE199E4253009E97B0 /* keyboardext.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = keyboardext.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +160,8 @@
 				DC639AA419985DBF00ED1449 /* AppDelegate.m */,
 				DC639AA619985DBF00ED1449 /* ViewController.h */,
 				DC639AA719985DBF00ED1449 /* ViewController.m */,
+				DC7C133F19A83B68004B3D79 /* CustomizerViewController.h */,
+				DC7C134019A83B68004B3D79 /* CustomizerViewController.m */,
 				DC639AA919985DBF00ED1449 /* Main.storyboard */,
 				DC639AAC19985DBF00ED1449 /* Images.xcassets */,
 				DC639A9F19985DBF00ED1449 /* Supporting Files */,
@@ -311,7 +327,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC7C134219A84240004B3D79 /* NSString+Morphing.h in Sources */,
+				DC7C134319A84240004B3D79 /* NSString+Morphing.m in Sources */,
+				DC7C134419A84240004B3D79 /* TOMSMorphingLabel.h in Sources */,
+				DC7C134519A84240004B3D79 /* TOMSMorphingLabel.m in Sources */,
+				DC7C134619A84240004B3D79 /* LDCollectionViewCell.h in Sources */,
+				DC7C134719A84240004B3D79 /* LDCollectionViewCell.m in Sources */,
+				DC7C134819A84240004B3D79 /* LDCollectionViewCell.xib in Sources */,
+				DC7C134919A84240004B3D79 /* ADLivelyCollectionView.h in Sources */,
+				DC7C134A19A84240004B3D79 /* ADLivelyCollectionView.m in Sources */,
+				DC7C134B19A84240004B3D79 /* KeyboardViewController.h in Sources */,
+				DC7C134C19A84240004B3D79 /* KeyboardViewController.m in Sources */,
 				DC639AA819985DBF00ED1449 /* ViewController.m in Sources */,
+				DC7C134119A83B68004B3D79 /* CustomizerViewController.m in Sources */,
 				DC639AA519985DBF00ED1449 /* AppDelegate.m in Sources */,
 				DC639AA219985DBF00ED1449 /* main.m in Sources */,
 			);

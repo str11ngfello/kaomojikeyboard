@@ -7,8 +7,10 @@
 //
 
 #import "KeyboardView.h"
+#import "BButton.h"
 
 @interface KeyboardView()
+@property (weak, nonatomic) IBOutlet BButton *spaceButton;
 @property (nonatomic, strong)NSTimer* repeatTimer;
 @end
 
@@ -17,6 +19,12 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    //[self.spaceButton setStyle:BButtonStyleBootstrapV3];
+    //[self.spaceButton setType:BButtonTypeDefault];
+   // [self.spaceButton setNeedsLayout];
+   // [self.spaceButton addAwesomeIcon:FATwitter beforeTitle:YES];
+   
+ 
 }
 
 - (IBAction)clear:(id)sender {

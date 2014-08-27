@@ -15,13 +15,13 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray* categoryViews;
-@property (nonatomic, strong) UIPageControl* pageControl;
+@property (weak, nonatomic) IBOutlet UIPageControl* pageControl;
 @property (weak, nonatomic) IBOutlet TOMSMorphingLabel *catLabel;
-
 @property (nonatomic, strong) TOMSMorphingLabel* statusLabel;
 @property (nonatomic, strong) NSArray* categories;
 @property (nonatomic, strong) NSDictionary* parts;
 
+@property (nonatomic, strong) NSUserDefaults* defaults;
 @property (weak, nonatomic) IBOutlet TOMSMorphingLabel *emoji;
 
 
@@ -111,18 +111,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
+    [self.defaults synchronize];
+    
+    NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
+   
+    if (![self.defaults objectForKey:@"CustomArray"])
+    {
+        [self.defaults setObject:[[NSMutableArray alloc] initWithCapacity:0] forKey:@"CustomArray"];
+        [self.defaults synchronize];
+    }
+    
     [self loadParts];
     
     self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(320 * [self.categories count], 158);
+    self.scrollView.contentSize = CGSizeMake(320 * [self.categories count], self.scrollView.frame.size.height);
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.scrollsToTop = NO;
     self.scrollView.delegate = self;
     
     
-    self.pageControl = [[UIPageControl alloc] init];
-    self.pageControl.frame = CGRectMake(160-75, -8, 150, 40);
     self.pageControl.numberOfPages = self.categories.count;
     self.pageControl.currentPage = 0;
     self.pageControl.currentPageIndicatorTintColor = [UIColor darkGrayColor];
@@ -131,7 +140,7 @@
     [self.view addSubview:self.pageControl];
     
     
-    self.catLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+    self.catLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
     self.catLabel.textColor = [UIColor darkGrayColor];
     self.catLabel.textAlignment = NSTextAlignmentCenter;
     self.catLabel.text = @"Eyes";
@@ -150,7 +159,7 @@
     {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 25;
-        ADLivelyCollectionView* colview = [[ADLivelyCollectionView alloc] initWithFrame:CGRectMake(i*320, 0, 320, 158) collectionViewLayout:layout];
+        ADLivelyCollectionView* colview = [[ADLivelyCollectionView alloc] initWithFrame:CGRectMake(i*320, 0, 320, self.scrollView.frame.size.height) collectionViewLayout:layout];
         
         [colview setDataSource:self];
         [colview setDelegate:self];
@@ -342,6 +351,26 @@
     
 }
 
+- (IBAction)saveToKeyboard:(id)sender {
+    NSMutableArray* customs = [[self.defaults objectForKey:@"CustomArray"] mutableCopy];
+    bool found = false;
+    for (NSString* s in customs)
+    {
+        if ([s isEqualToString:self.emoji.text])
+        {
+            found = true;
+            break;
+        }
+    }
+    if (!found)
+    {
+        
+        [customs insertObject:self.emoji.text atIndex:0];
+        [self.defaults setObject:customs forKey:@"CustomArray"];
+        [self.defaults synchronize];
+    }
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -9,6 +9,7 @@
 #import "KeyboardViewController.h"
 #import "KeyboardView.h"
 #import "TOMSMorphingLabel.h"
+#import "CYRKeyboardButton.h"
 
 #define SCROLL_VIEW_BOTTOM_PADDING 64
 #define CELL_HEIGHT 35
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) TOMSMorphingLabel* catLabel;
 @property (nonatomic, strong) TOMSMorphingLabel* statusLabel;
 @property (nonatomic, assign) bool canStartNewStatus;
+
+@property (nonatomic, strong) CYRKeyboardButton *spaceBarButton;
 @end
 
 @implementation KeyboardViewController
@@ -38,6 +41,20 @@
     // Add custom view sizing constraints here
 }
 
+- (CYRKeyboardButton*)createSpaceBarButton {
+    CYRKeyboardButton *keyboardButton = [CYRKeyboardButton new];
+    keyboardButton.translatesAutoresizingMaskIntoConstraints = NO;
+    keyboardButton.input = @" ";
+    keyboardButton.renderText = @"space";
+    keyboardButton.inputOptions = nil;
+    keyboardButton.textInput = self.textDocumentProxy;
+    keyboardButton.shouldShowEnlargedInput = NO;
+    //    [keyboardButton setTextBaselineOffset:-3];
+    keyboardButton.font = [UIFont systemFontOfSize:16];
+    
+    return keyboardButton;
+}
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat pageWidth = self.scrollView.frame.size.width;
@@ -45,7 +62,12 @@
     NSInteger page = lround(fractionalPage);
     self.pageControl.currentPage = page;
     
-    self.catLabel.text = [self.emojiCategories objectAtIndex:page];
+    //if (![[self.emojiCategories objectAtIndex:page] isEqualToString:@"Favorites"] &&
+    //    ![[self.emojiCategories objectAtIndex:page] isEqualToString:@"Recent"])
+        self.catLabel.text = [self.emojiCategories objectAtIndex:page];
+    //else
+      //  self.catLabel.text = @"";
+
     
     [self.defaults setInteger:page forKey:@"CurrentPage"];
     [self.defaults synchronize];
@@ -125,6 +147,7 @@
                         self.pageControl.hidden = true;
                         self.catLabel.hidden = true;
                         self.statusLabel.text = @"added to favorites";
+                       
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,1.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                             self.statusLabel.text = @"";
                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW,.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
@@ -175,7 +198,8 @@
      
     //Create shared defaults
     self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
-    
+    [self.defaults synchronize];
+    NSLog(@"ext app - %@",[self.defaults objectForKey:@"CustomArray"]);
     if (![self.defaults objectForKey:@"HistoryArray"])
     {
         [self.defaults setObject:[[NSMutableArray alloc] initWithCapacity:0] forKey:@"HistoryArray"];
@@ -185,6 +209,12 @@
     if (![self.defaults objectForKey:@"FavoriteArray"])
     {
         [self.defaults setObject:[[NSMutableArray alloc] initWithCapacity:0] forKey:@"FavoriteArray"];
+        [self.defaults synchronize];
+    }
+    
+    if (![self.defaults objectForKey:@"CustomArray"])
+    {
+        [self.defaults setObject:[[NSMutableArray alloc] initWithCapacity:0] forKey:@"CustomArray"];
         [self.defaults synchronize];
     }
     
@@ -273,6 +303,8 @@
     [self.scrollView setNeedsDisplay];
     [self.scrollView setNeedsLayout];
     
+    self.spaceBarButton = [self createSpaceBarButton];
+    [self.inputView addSubview:self.spaceBarButton];
     
 }
 
@@ -360,6 +392,9 @@
         
         //Get Category
         NSString* category = [self.emojiCategories objectAtIndex:collectionView.tag];
+        
+        //if ([category isEqualToString:@"Favorites"])
+          //  return nil;
         
         //Find Subcategories
         NSArray* subCategories = [self.emojiSubCategories objectForKey:category];
@@ -459,6 +494,16 @@
         else
             return [history count];
     }
+    else if (collectionView.tag == self.emojiCategories.count-1)
+    {
+        NSArray* customs = [self.defaults objectForKey:@"CustomArray"];
+        if ([customs count] == 0)
+            return 1;
+        else if ([customs count] < 4)
+            return 4;
+        else
+            return [customs count];
+    }
     else
     {
         //Get Category
@@ -554,6 +599,34 @@
                 cell.textLabel.textColor = [UIColor blackColor];
         }
     }
+    else if (collectionView.tag == self.emojiCategories.count-1)
+    {
+        //If we don't have any customs, create empty objects so that user can still swipe the page easily
+        NSArray* customs = [self.defaults objectForKey:@"CustomArray"];
+        if ([customs count] == 0)
+        {
+            cell.textLabel.text = @"No custom kaomoji.\nUse the customizer to build one!";
+            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+            if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+                cell.textLabel.textColor = [UIColor lightGrayColor];
+            else
+                cell.textLabel.textColor = [UIColor darkGrayColor];
+            
+        }
+        else
+        {
+            if (indexPath.row >= [customs count])
+                cell.textLabel.text = @"";
+            else
+                cell.textLabel.text = [customs objectAtIndex:indexPath.row];
+            cell.textLabel.font = [UIFont systemFontOfSize:18];
+            if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
+                cell.textLabel.textColor = [UIColor whiteColor];
+            else
+                cell.textLabel.textColor = [UIColor blackColor];
+        }
+    }
+
     else
     {
         //Get Category
@@ -601,6 +674,7 @@
         {
             [self.textDocumentProxy insertText:[favorites objectAtIndex:indexPath.row]];
             self.sizeOfLastEntry = [[favorites objectAtIndex:indexPath.row] length];
+            [self addToHistory:[favorites objectAtIndex:indexPath.row]];
             
         }
     }
@@ -621,6 +695,25 @@
             self.sizeOfLastEntry = [[history objectAtIndex:indexPath.row] length];
         }
     }
+    else if (collectionView.tag == self.emojiCategories.count-1)
+    {
+        NSArray* customs = [self.defaults objectForKey:@"CustomArray"];
+        if ([customs count] == 0)
+        {
+            //do nothing
+        }
+        else if (indexPath.row >= [customs count])
+        {
+            //do nothing
+        }
+        else
+        {
+            [self.textDocumentProxy insertText:[customs objectAtIndex:indexPath.row]];
+            self.sizeOfLastEntry = [[customs objectAtIndex:indexPath.row] length];
+            [self addToHistory:[customs objectAtIndex:indexPath.row]];
+        }
+    }
+
     else
     {
         
@@ -639,16 +732,7 @@
         [self.textDocumentProxy insertText:[emojiArray objectAtIndex:indexPath.row]];
         self.sizeOfLastEntry = [[emojiArray objectAtIndex:indexPath.row] length];
     
-        //Add to history
-        NSMutableArray* history = [[self.defaults objectForKey:@"HistoryArray"] mutableCopy];
-        if ([history count] > 250)
-            [history removeLastObject];
-        [history insertObject:[emojiArray objectAtIndex:indexPath.row] atIndex:0];
-        [self.defaults setObject:history forKey:@"HistoryArray"];
-        [self.defaults synchronize];
-        
-        //Refresh history collectionview
-        [((UICollectionView*)[self.categoryViews objectAtIndex:1]) reloadData];
+        [self addToHistory:[emojiArray objectAtIndex:indexPath.row]];
     }
 }
 
@@ -658,8 +742,11 @@
     //Decide how many columns we want to shoot for because some kaomoji are naturally longer than others
     NSArray* favorites = [[self.defaults objectForKey:@"FavoriteArray"] mutableCopy];
     NSArray* history = [[self.defaults objectForKey:@"HistoryArray"] mutableCopy];
+    NSArray* customs = [[self.defaults objectForKey:@"CustomArray"] mutableCopy];
+    
     if ((collectionView.tag == 0 && [favorites count] == 0) ||
-        (collectionView.tag == 1 && [history count] == 0))
+        (collectionView.tag == 1 && [history count] == 0) ||
+        (collectionView.tag == self.emojiCategories.count-1 && [customs count] == 0))
         return CGSizeMake(640,130);
     else
     {
@@ -677,6 +764,23 @@
     }
 }
 
+-(void)addToHistory:(NSString*)emoji
+{
+    //Add to history
+    NSMutableArray* history = [[self.defaults objectForKey:@"HistoryArray"] mutableCopy];
+    if ([history count] > 250)
+        [history removeLastObject];
+    if (![emoji isEqualToString:[history objectAtIndex:0]])
+    {
+        [history insertObject:emoji atIndex:0];
+        [self.defaults setObject:history forKey:@"HistoryArray"];
+        [self.defaults synchronize];
+    
+        //Refresh history collectionview
+        [((UICollectionView*)[self.categoryViews objectAtIndex:1]) reloadData];
+    }
+
+}
 -(void)clear
 {
     //for (int i = 0;i < self.sizeOfLastEntry;++i)
@@ -686,7 +790,7 @@
 -(void)loadEmojis
 {
     //self.emojiCategories = @[@"Favorites",@"Recent",@"Faces",@"Actions",@"Hugs",@"Whatever",@"The Bird",@"Trolls",@"Table Flip",@"Phrases",@"Misc"];
-    self.emojiCategories = @[@"Favorites",@"Recent",@"Emotions",@"Actions",@"Characters",@"Phrases"];
+    self.emojiCategories = @[@"Favorites",@"Recent",@"Emotions",@"Actions",@"Characters",@"Phrases",@"Customized"];
     //self.emojiColumnWidths = @[@200,@200,@100,@100,@200,@100,@120,@100,@200,@200,@200];
 
     self.emojiColumnWidths = @{@"Favorites":@[@200],
@@ -695,9 +799,12 @@
                                @"Actions":@[@100,@120,@120,@120,@120,@120,@200,@100,@200,@200],
                                @"Characters":@[@120,@120,@120,@120,@120,@120,@120,@120,@120,@120],
                                @"Phrases":@[@200],
+                               @"Customized":@[@200],
                                };
     
-    self.emojiSubCategories = @{@"Emotions":@[@"Happy",@"Sad",@"Angry",@"Love",@"Worried",@"Shocked",@"Annoyed"],
+    self.emojiSubCategories = @{@"Favorites":@[@"Favorite Kaomojis"],
+                                @"Recent":@[@"Recently Used"],
+                                @"Emotions":@[@"Happy",@"Sad",@"Angry",@"Love",@"Worried",@"Shocked",@"Annoyed"],
                                 @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"Flipping the Bird",@"Whatever",@"High Fiving",@"Table Flipping"],
                                 @"Characters":@[@"Dogs",@"Cats",@"Rabbits",@"Bears",@"Pigs",@"Monkeys",@"Devils",@"Zombies",@"Trolls",@"Flower Girls"],
                                 @"Phrases":@[@"Phrases"],

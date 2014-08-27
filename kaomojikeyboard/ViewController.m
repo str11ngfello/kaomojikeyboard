@@ -20,6 +20,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
+    [self.defaults synchronize];
+    NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
+    
   
 }
 

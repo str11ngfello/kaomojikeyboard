@@ -12,6 +12,8 @@
 #import "LDCollectionViewCell.h"
 
 @interface CustomizerViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *saveToKeyboardButton;
+@property (weak, nonatomic) IBOutlet UIButton *randomizeButton;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray* categoryViews;
@@ -74,7 +76,7 @@
     
         self.parts = @{ @"Eyes":
                             
-                            @[@"•",@"◦",@"●",@"○",@"◎",@"◉",@"⦿",@"⁌",@"⁍",@"-",@"■",@"□",@"✪",@"◇",@"◆",@"﹅",@"﹆",@"◯",@"◓",@"◐",@"◑",@"◒",@"◔",@"◕",@"◴",@"◵",@"◶",@"◷",@"Ꙩ",@"❁",@"♥",@"＾",@"￣",@"°",@"❛",@"⌒",@"◕",@"╥",@"≖",@"◉", @"・", @"ಠ", @"◠", @"✖", @"˘", @"●", @"◔", @"O", @"¬", @"T", @"╹", @"◡", @"ಥಿ", @"ಥ", @"①", @"★", @"ー", @">", @"•̀", @"╯", @"｀", @"^",@"･",@"⊙", @"ò", @"⌣̀", @"≧", @"｀・", @"´", @"´"],
+                            @[@"none",@"•",@"◦",@"●",@"○",@"◎",@"◉",@"⦿",@"⁌",@"⁍",@"-",@"■",@"□",@"✪",@"◇",@"◆",@"﹅",@"﹆",@"◯",@"◓",@"◐",@"◑",@"◒",@"◔",@"◕",@"◴",@"◵",@"◶",@"◷",@"Ꙩ",@"❁",@"♥",@"＾",@"￣",@"°",@"❛",@"⌒",@"◕",@"╥",@"≖",@"◉", @"・", @"ಠ", @"◠", @"✖", @"˘", @"●", @"◔", @"O", @"¬", @"T", @"╹", @"◡", @"ಥಿ", @"ಥ", @"①", @"★", @"ー", @">", @"•̀", @"╯", @"｀", @"^",@"･",@"⊙", @"ò", @"⌣̀", @"≧", @"｀・", @"´", @"´"],
                           
                     
                        @"Mouths":
@@ -105,7 +107,12 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 
+    self.tabBarController.tabBar.tintColor = [UIColor flatOrangeColorDark];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -134,14 +141,12 @@
     
     self.pageControl.numberOfPages = self.categories.count;
     self.pageControl.currentPage = 0;
-    self.pageControl.currentPageIndicatorTintColor = [UIColor darkGrayColor];
-    self.pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     [self.pageControl setAutoresizingMask: UIViewAutoresizingFlexibleBottomMargin |UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
     [self.view addSubview:self.pageControl];
     
     
     self.catLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
-    self.catLabel.textColor = [UIColor darkGrayColor];
+
     self.catLabel.textAlignment = NSTextAlignmentCenter;
     self.catLabel.text = @"Eyes";
     
@@ -178,7 +183,36 @@
     [self.scrollView setNeedsDisplay];
     [self.scrollView setNeedsLayout];
 
+    
+    self.leftBracket = @"(";
+    self.leftEye = @"◉";
+    self.mouth = @"‿";
+    self.rightEye = @"◉";
+    self.rightBracket = @")";
     [self rebuildEmoji];
+    
+    
+    
+  /*  [self.saveToKeyboardButton setIsAwesome:YES];
+    [self.saveToKeyboardButton setButtonText:@"Save To Keyboard"];
+    //[self.saveToKeyboardButton setButtonIcon:@"fa-fire"];
+    [self.saveToKeyboardButton setTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor whiteColor]} forUIControlState:UIControlStateNormal];
+    [self.saveToKeyboardButton setIconPosition:IconPositionLeft];
+    [self.saveToKeyboardButton setBackgroundColor:[UIColor colorWithRed:205.0f/255 green:35.0f/255 blue:44.0f/255 alpha:1.0] forUIControlState:UIControlStateNormal];
+    [self.saveToKeyboardButton setBackgroundColor:[UIColor colorWithRed:244.0f/255 green:61.0f/255 blue:91.0f/255 alpha:1.0] forUIControlState:UIControlStateHighlighted];
+    [self.saveToKeyboardButton setRadius:0.0];
+    
+    [self.randomizeButton setIsAwesome:YES];
+   //[self.randomizeButton setButtonText:@"Randomize"];
+    [self.randomizeButton setButtonIcon:@"fa-pinterest"];
+    [self.randomizeButton setTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:27],NSForegroundColorAttributeName:[UIColor whiteColor]} forUIControlState:UIControlStateNormal];
+    [self.randomizeButton setIconPosition:IconPositionLeft];
+    [self.randomizeButton setBackgroundColor:[UIColor colorWithRed:205.0f/255 green:35.0f/255 blue:44.0f/255 alpha:1.0] forUIControlState:UIControlStateNormal];
+    [self.randomizeButton setBackgroundColor:[UIColor colorWithRed:244.0f/255 green:61.0f/255 blue:91.0f/255 alpha:1.0] forUIControlState:UIControlStateHighlighted];
+    [self.randomizeButton setRadius:5];
+*/
+
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -191,6 +225,7 @@
     
     
 }
+
 
 
 /*- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -251,7 +286,7 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(0, 20, 20, 20);
+    return UIEdgeInsetsMake(0, 5, 5, 5);
 }
 
 
@@ -279,7 +314,7 @@
     }
     
 
-    cell.textLabel.font = [UIFont systemFontOfSize:28];
+    cell.textLabel.font = [UIFont systemFontOfSize:26];
     
     
     cell.textLabel.text = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
@@ -331,14 +366,6 @@
         self.leftCheek = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
         self.rightCheek = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
     }
-    else if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Left Flare"])
-    {
-        self.leftFlare = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
-    }
-    else if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Right Flare"])
-    {
-        self.rightFlare = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
-    }
     
     [self rebuildEmoji];
     
@@ -347,7 +374,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    return CGSizeMake(32,32);
+    return CGSizeMake(54,54);
     
 }
 
@@ -372,6 +399,46 @@
     
 }
 
+- (IBAction)clear:(id)sender {
+    self.leftFlare = @"";
+    self.leftArm = @"";
+    self.leftBracket = @"";
+    self.leftCheek = @"";
+    self.leftEye = @"";
+    self.mouth = @"";
+    self.rightEye = @"";
+    self.rightCheek = @"";
+    self.rightBracket = @"";
+    self.rightArm = @"";
+    self.rightFlare = @"";
+    
+    [self rebuildEmoji];
+}
+- (IBAction)random:(id)sender {
+    
+    int random = arc4random()%((NSArray*)self.parts[@"Brackets"]).count;
+    unichar c = [[self.parts[@"Brackets"] objectAtIndex:random] characterAtIndex:0];
+    self.leftBracket = [NSString stringWithCharacters:&c length:1];
+    c = [[self.parts[@"Brackets"] objectAtIndex:random] characterAtIndex:1];
+    self.rightBracket = [NSString stringWithCharacters:&c length:1];
+    
+    random = arc4random()%((NSArray*)self.parts[@"Eyes"]).count;
+    self.leftEye = [self.parts[@"Eyes"] objectAtIndex:random];
+    self.rightEye = [self.parts[@"Eyes"] objectAtIndex:random];
+ 
+    random = arc4random()%((NSArray*)self.parts[@"Cheeks"]).count;
+    self.leftEye = [self.parts[@"Cheeks"] objectAtIndex:random];
+    self.rightEye = [self.parts[@"Cheeks"] objectAtIndex:random];
+
+    self.leftFlare = @"";
+    self.leftArm = [self.parts[@"Left Arms"] objectAtIndex:arc4random()%((NSArray*)self.parts[@"Left Arms"]).count];
+    self.mouth = [self.parts[@"Mouths"] objectAtIndex:arc4random()%((NSArray*)self.parts[@"Mouths"]).count];
+    self.rightArm = [self.parts[@"Right Arms"] objectAtIndex:arc4random()%((NSArray*)self.parts[@"Right Arms"]).count];
+    self.rightFlare = @"";
+
+    
+    [self rebuildEmoji];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

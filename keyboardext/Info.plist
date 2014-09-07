@@ -24,7 +24,7 @@
 	<string>1</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>FontAwesome.ttf</string>
+		<string>fontawesome-webfont.ttf</string>
 	</array>
 	<key>NSExtension</key>
 	<dict>

@@ -23,7 +23,7 @@
 
 -(void)selectionEffect
 {
-  /*  UILabel* tempLabel = [[UILabel alloc] initWithFrame:_textLabel.frame];
+    UILabel* tempLabel = [[UILabel alloc] initWithFrame:_textLabel.frame];
     tempLabel.text = _textLabel.text;
     [self addSubview:tempLabel];
     
@@ -35,7 +35,7 @@
                      }
                      completion:^(BOOL finished) {
                          [tempLabel removeFromSuperview];
-                     }];*/
+                     }];
     
 }
 

@@ -1,0 +1,40 @@
+//
+//  PrefixHeader.pch
+//  kaomojikeyboard
+//
+//  Created by Lowell Duke on 8/31/14.
+//  Copyright (c) 2014 Seventh Night Studios. All rights reserved.
+//
+
+#ifndef kaomojikeyboard_PrefixHeader_pch
+#define kaomojikeyboard_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "Chameleon.h"
+#import "AFNetworking.h"
+
+
+
+//Server End Point
+#define kServerEndPointURL @"http://pablopistachio.ddns.net:8484/api/"
+
+//Notification Center Events
+#define kPeopleRequestNotification      @"PeopleRequestNotification"
+
+//#define USE_LIVE_DATA       //comment out to use test data
+#define kNumPeopleEachFetchRequest      20
+
+//Profile card size
+#define kCardStackSize      3
+#define kCardSize           308
+#define kCardTransStep      -30
+#define kCardScaleStep      .1
+#define kCardAlphaStep      .2
+#define kBlockSize          (kCardSize/4)
+#define kBlockPadding       0
+
+
+
+#endif

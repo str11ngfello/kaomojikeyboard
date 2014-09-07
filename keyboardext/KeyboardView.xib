@@ -10,56 +10,57 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Nm-cE-GzU">
-                    <rect key="frame" x="270" y="161" width="57" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <gestureRecognizers/>
-                    <state key="normal" image="delete.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="clear:" destination="iN0-l3-epB" eventType="touchUpInside" id="kFf-sD-hCp"/>
-                        <outletCollection property="gestureRecognizers" destination="Ych-pK-dGf" appends="YES" id="cpc-0i-kO2"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5bb-l2-6Ab">
-                    <rect key="frame" x="34" y="161" width="57" height="65"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5bb-l2-6Ab" customClass="KeyboardButton">
+                    <rect key="frame" x="38" y="175" width="33" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="0.58431372550000005" green="0.61176470589999998" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                     <gestureRecognizers/>
-                    <state key="normal" image="delete.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="share-48.png"/>
                     <connections>
                         <action selector="link:" destination="iN0-l3-epB" eventType="touchUpInside" id="ek5-Ay-IaE"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Sa4-ue-rqL">
-                    <rect key="frame" x="-7" y="161" width="56" height="65"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sa4-ue-rqL" customClass="KeyboardButton">
+                    <rect key="frame" x="2" y="175" width="33" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <state key="normal" image="globe.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <color key="backgroundColor" red="0.58431372549019611" green="0.61176470588235299" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="globe-40.png"/>
                     <connections>
                         <action selector="nextKeyboard:" destination="iN0-l3-epB" eventType="touchUpInside" id="afb-JA-8Y0"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cfc-8l-ANe">
-                    <rect key="frame" x="90" y="176" width="141" height="36"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cfc-8l-ANe" customClass="KeyboardButton">
+                    <rect key="frame" x="72" y="175" width="176" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title="space">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JDu-IB-Guc">
-                    <rect key="frame" x="228" y="161" width="57" height="65"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JDu-IB-Guc" customClass="KeyboardButton">
+                    <rect key="frame" x="249" y="175" width="33" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="0.58431372550000005" green="0.61176470589999998" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                     <gestureRecognizers/>
-                    <state key="normal" image="delete.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="background_color-50.png"/>
                     <connections>
                         <action selector="link:" destination="iN0-l3-epB" eventType="touchUpInside" id="a7B-rg-1iZ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0Nm-cE-GzU" customClass="KeyboardButton">
+                    <rect key="frame" x="253" y="175" width="65" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" red="0.58431372550000005" green="0.61176470589999998" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" image="left_arrow-48.png"/>
+                    <connections>
+                        <action selector="clear:" destination="iN0-l3-epB" eventType="touchUpInside" id="kFf-sD-hCp"/>
+                        <outletCollection property="gestureRecognizers" destination="Ych-pK-dGf" appends="YES" id="cpc-0i-kO2"/>
                     </connections>
                 </button>
             </subviews>
@@ -68,7 +69,10 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="clearButton" destination="0Nm-cE-GzU" id="zdh-eS-iFi"/>
+                <outlet property="colorCycleButton" destination="JDu-IB-Guc" id="7CE-P8-7Xc"/>
+                <outlet property="deleteButton" destination="0Nm-cE-GzU" id="N3I-6O-Mub"/>
                 <outlet property="nextKeyboardButton" destination="Sa4-ue-rqL" id="oNF-eo-hiu"/>
+                <outlet property="shareButton" destination="5bb-l2-6Ab" id="KF1-HM-mfk"/>
                 <outlet property="spaceButton" destination="cfc-8l-ANe" id="RWN-z5-5vJ"/>
             </connections>
             <point key="canvasLocation" x="-201" y="64"/>
@@ -80,8 +84,10 @@
         </pongPressGestureRecognizer>
     </objects>
     <resources>
-        <image name="delete.png" width="37" height="40"/>
-        <image name="globe.png" width="35" height="40"/>
+        <image name="background_color-50.png" width="25" height="25"/>
+        <image name="globe-40.png" width="20" height="20"/>
+        <image name="left_arrow-48.png" width="24" height="24"/>
+        <image name="share-48.png" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

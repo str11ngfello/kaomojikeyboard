@@ -9,7 +9,7 @@
 #import "KeyboardViewController.h"
 #import "KeyboardView.h"
 #import "TOMSMorphingLabel.h"
-#import "CYRKeyboardButton.h"
+
 
 #define SCROLL_VIEW_BOTTOM_PADDING 64
 #define CELL_HEIGHT 35
@@ -30,7 +30,7 @@
 @property (nonatomic, strong) TOMSMorphingLabel* statusLabel;
 @property (nonatomic, assign) bool canStartNewStatus;
 
-@property (nonatomic, strong) CYRKeyboardButton *spaceBarButton;
+
 @end
 
 @implementation KeyboardViewController
@@ -41,19 +41,6 @@
     // Add custom view sizing constraints here
 }
 
-- (CYRKeyboardButton*)createSpaceBarButton {
-    CYRKeyboardButton *keyboardButton = [CYRKeyboardButton new];
-    keyboardButton.translatesAutoresizingMaskIntoConstraints = NO;
-    keyboardButton.input = @" ";
-    keyboardButton.renderText = @"space";
-    keyboardButton.inputOptions = nil;
-    keyboardButton.textInput = self.textDocumentProxy;
-    keyboardButton.shouldShowEnlargedInput = NO;
-    //    [keyboardButton setTextBaselineOffset:-3];
-    keyboardButton.font = [UIFont systemFontOfSize:16];
-    
-    return keyboardButton;
-}
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -193,6 +180,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     self.canStartNewStatus = true;
    self.automaticallyAdjustsScrollViewInsets = NO;
      
@@ -303,12 +291,15 @@
     [self.scrollView setNeedsDisplay];
     [self.scrollView setNeedsLayout];
     
-    self.spaceBarButton = [self createSpaceBarButton];
-    [self.inputView addSubview:self.spaceBarButton];
+    [self.inputView setNeedsLayout];
+    [self.inputView setNeedsDisplay];
+    
     
 }
 
 -(void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
     
     int appExtensionWidth = (int)round(self.view.frame.size.width);
     int appExtensionHeight = (int)round(self.view.frame.size.height);
@@ -349,9 +340,10 @@
         
     }
 
-    
-    //[self.keyboardView bringSubviewToFront:self.keyboardView.nextKeyboardButton];
-    //[self.keyboardView bringSubviewToFront:self.keyboardView.clearButton];
+    CGRect shareRect = self.keyboardView.shareButton.frame;
+    CGRect deleteRect = self.keyboardView.deleteButton.frame;
+    float spaceBarX = shareRect.origin.x+shareRect.size.width+3;
+    [self.keyboardView.spaceButton setFrame:CGRectMake(spaceBarX,self.keyboardView.shareButton.frame.origin.y,deleteRect.origin.x-spaceBarX-3,40)];
     
 }
 
@@ -770,7 +762,8 @@
     NSMutableArray* history = [[self.defaults objectForKey:@"HistoryArray"] mutableCopy];
     if ([history count] > 250)
         [history removeLastObject];
-    if (![emoji isEqualToString:[history objectAtIndex:0]])
+    
+    if (history.count == 0 || (history.count > 0  && ![emoji isEqualToString:[history objectAtIndex:0]]))
     {
         [history insertObject:emoji atIndex:0];
         [self.defaults setObject:history forKey:@"HistoryArray"];

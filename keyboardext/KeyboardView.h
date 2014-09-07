@@ -12,6 +12,11 @@
 #import "LDCollectionViewCell.h"
 
 @interface KeyboardView : UIView
+@property (weak, nonatomic) IBOutlet UIButton *spaceButton;
+@property (weak, nonatomic) IBOutlet UIButton *shareButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIButton *colorCycleButton;
+
 @property (nonatomic, weak) IBOutlet UIButton* nextKeyboardButton;
 @property (nonatomic, weak) IBOutlet UIButton* clearButton;
 @property (nonatomic, strong) KeyboardViewController* keyboardViewController;

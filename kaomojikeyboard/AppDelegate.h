@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@interface UIImageViewTinted : UIImageView
+
+@end
+
+@interface UIButtonTinted : UIButton
+
+@end
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

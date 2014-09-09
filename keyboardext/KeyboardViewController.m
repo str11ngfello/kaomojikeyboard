@@ -211,7 +211,7 @@
     
     
     
-    self.sizeOfLastEntry = 5 ;
+    self.sizeOfLastEntry = 1 ;
     
     self.keyboardView = [[[NSBundle mainBundle] loadNibNamed:@"KeyboardView" owner:self options:nil] objectAtIndex:0];
     self.keyboardView.frame = CGRectMake(0, 0, 320, 216);
@@ -777,7 +777,7 @@
 -(void)clear
 {
     //for (int i = 0;i < self.sizeOfLastEntry;++i)
-    [self.textDocumentProxy deleteBackward];
+        [self.textDocumentProxy deleteBackward];
 
 }
 -(void)loadEmojis
@@ -1160,7 +1160,7 @@
                       @"ᕙ(＠▽＠)ᕗ",
                       @"ᕙ(>Д< ᕙ)",
                       @"ᕦ(⌒⊆⌒ ᕦ)",
-                      @"ᕙ(♥‿♥ ᕙ )"
+
                     ],
                 
                     
@@ -1235,7 +1235,6 @@
                           @"ɴⁱᵍʰᵗᵎ ɴⁱᵍʰᵗᵎ",
                           @"♬ ɱUꑄյ͛ʗ ♬",
                           @"ɢ∞פ ʍօ૨ɴɪɴɢ",
-                          @"LﾛVЁ",
                           @"⋆ᗰદ૨૨ʏ⋆ᘓમ૨ıડτന੨ડ⋆",
                           @"～ΜᎧrRγ сняᎥᎦτмᏜs*～",
                           @"нарру　йёω　уёая!",
@@ -1244,8 +1243,11 @@
                            @"Lᵒᵛᵉᵧₒᵤ ♡",
                           @"꒒ ০ ⌵ ୧ ♡",
                           @"LﾛVЁ",
+                          @"ℒฺℴฺνℯฺ",
                           @"˪৹⌵ೕ",
+                          @"ℓ࿆࿆࿆ෆ࿆౮࿆୧࿆",
                           @"༝࿆༚࿆༝࿆༚࿆",
+                          @"ღ сμтё ღ",
                           @"Ɛn꒻öႸ",
                           @"ɢ∞פ⋆ᖙᵒᵝ",
                           @"ᙚᵐⁱᒻᵉ ¨̮",

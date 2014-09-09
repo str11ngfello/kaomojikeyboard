@@ -8,6 +8,34 @@
 
 #import "AppDelegate.h"
 
+@implementation UIImageViewTinted
+
+
+-(void)awakeFromNib
+{
+    self.image = [self.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
+}
+
+@end
+
+
+@implementation UIButtonTinted
+
+
+-(void)awakeFromNib
+{
+    UIImage* i = [self imageForState:UIControlStateNormal];
+    [self setImage:[i imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+
+    
+}
+
+@end
+
+
+
+
 @interface AppDelegate ()
 
 @end

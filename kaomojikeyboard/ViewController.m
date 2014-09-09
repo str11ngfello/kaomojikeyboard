@@ -26,7 +26,7 @@
     
     self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
     [self.defaults synchronize];
-    NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
+    //NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
 
     self.tabBarController.tabBar.hidden = true;
     _instructions.center = CGPointMake(_instructions.center.x,[[UIScreen mainScreen] bounds].size.height+300);

@@ -46,6 +46,9 @@
 - (IBAction)link:(id)sender {
     [self.keyboardViewController.textDocumentProxy insertText:@"Get Kaomoji Keyboard in the App Store! http://bit.ly/1v6jcKL"];
 }
+- (IBAction)spaceBar:(id)sender {
+    [self.keyboardViewController.textDocumentProxy insertText:@" "];
+}
 
 - (void)deleteChar {
     [self.keyboardViewController.textDocumentProxy deleteBackward];

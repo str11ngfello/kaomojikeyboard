@@ -28,7 +28,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(◉‿◉)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3DI-8V-jHZ" customClass="TOMSMorphingLabel">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3DI-8V-jHZ" customClass="TOMSMorphingLabel">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -65,6 +65,9 @@
                                     <color key="titleColor" red="0.99215692280000001" green="0.47450983520000001" blue="0.13333334029999999" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveToKeyboard:" destination="0EA-mt-rW5" eventType="touchUpInside" id="SFC-FE-G0Q"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ju3-Dw-KRL" customClass="CustomButton">
                                 <rect key="frame" x="8" y="382" width="55" height="32"/>
@@ -112,87 +115,192 @@
             <point key="canvasLocation" x="-459" y="119"/>
         </scene>
         <!--Tips-->
-        <scene sceneID="0Qv-en-Igs">
+        <scene sceneID="h1G-IH-896">
             <objects>
-                <viewController id="Kqe-X3-rEb" customClass="TipsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1Mg-Hw-fYh">
+                <tableViewController id="vXC-Fi-wlj" customClass="TipsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="106" sectionHeaderHeight="25" sectionFooterHeight="22" id="62z-PK-KXK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenGradient.png" id="3O7-fo-71X">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" id="yhz-h7-D9Q">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="49"/>
+                        <visualEffectView key="tableHeaderView" opaque="NO" alpha="0.85000002384185791" contentMode="scaleToFill" id="GnT-1X-Ndk">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8Ow-fq-GzB">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8jR-LL-Crr">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="19" id="WdK-dI-prZ">
-                                            <rect key="frame" x="13" y="8" width="294" height="68"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="37"/>
-                                            <color key="textColor" red="0.032247919914770724" green="0.60672545241286868" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vpK-Np-2F5">
-                                <rect key="frame" x="0.0" y="83" width="320" height="437"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TipsCellID" id="QCb-82-U8t">
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help is good" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="19" id="MIR-te-Sm0">
+                                        <rect key="frame" x="-17" y="8" width="355" height="68"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="37"/>
+                                        <color key="textColor" red="0.032247919909999999" green="0.60672545239999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </view>
+                            <blurEffect style="light"/>
+                        </visualEffectView>
+                        <sections>
+                            <tableViewSection headerTitle="Keyboard" id="mD3-yN-oMY">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="uH0-4O-Ngz">
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QCb-82-U8t" id="7lp-O5-fwT">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uH0-4O-Ngz" id="U6y-ac-Drk">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap and hold a kamoji to add it to favorites for quick access." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="9" id="ACH-b3-U1g">
+                                                    <rect key="frame" x="66" y="13" width="242" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" red="0.085792874069999997" green="0.46711628690000001" blue="0.030053602280000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="like-128.png" id="eXj-vt-NFL" customClass="UIImageViewTinted">
+                                                    <rect key="frame" x="12" y="33" width="39" height="39"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="j2L-GV-J3F">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j2L-GV-J3F" id="Mc2-Zp-hqz">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To remove a kamoji from favorites, tap and hold it while in the favorites page." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="9" id="eh5-Mm-Y9S">
+                                                    <rect key="frame" x="63" y="13" width="242" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.07360791628248653" green="0.4007728719839142" blue="0.025785160649172044" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unlike.png" id="0Vg-km-vOa" customClass="UIImageViewTinted">
+                                                    <rect key="frame" x="12" y="33" width="39" height="39"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="Kqe-X3-rEb" id="Osd-gy-Fd7"/>
-                                    <outlet property="delegate" destination="Kqe-X3-rEb" id="NYu-rC-BgY"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Tips" image="info-75.png" id="eZe-jY-MZX"/>
-                    <connections>
-                        <outlet property="tableView" destination="vpK-Np-2F5" id="gC7-zE-6qv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iXI-gv-VgD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Customizer" id="MKz-oO-xAv">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="mw6-qO-PMh">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mw6-qO-PMh" id="Xtp-gj-wnP">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Left and right eyes can be set individually. Tap and hold any eye to specify location. The same works for cheeks." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="9" id="oqS-bN-lO9">
+                                                    <rect key="frame" x="65" y="13" width="242" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.073607916280000005" green="0.400772872" blue="0.02578516065" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="eyes.png" id="9DA-M9-YeN" customClass="UIImageViewTinted">
+                                                    <rect key="frame" x="12" y="33" width="39" height="39"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="YHX-WI-VkQ">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YHX-WI-VkQ" id="rcI-P3-bH2">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="After customizing a new kaomoji, tap &quot;Save to Keyboard&quot;.  You can find saved kaomojis on the last page inside the keyboard. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="9" id="Uiw-Tb-2GP">
+                                                    <rect key="frame" x="65" y="13" width="242" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.073607916280000005" green="0.400772872" blue="0.02578516065" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enter-128.png" id="KnB-jt-owV" customClass="UIImageViewTinted">
+                                                    <rect key="frame" x="15" y="38" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Troubleshooting" id="wj9-LT-vdg">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gL4-an-oVO">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gL4-an-oVO" id="UhT-fU-hhk">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question-128.png" id="Bt5-8s-uGh" customClass="UIImageViewTinted">
+                                                    <rect key="frame" x="15" y="35" width="34" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="9" id="5yZ-7o-2Th">
+                                                    <rect key="frame" x="65" y="-4" width="242" height="113"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Favorites not showing up? Customized kaomojis not saving? Make sure you turn on "Allow Full Access" when adding the Kaomoji Keyboard in Settings.</string>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.073607916280000005" green="0.400772872" blue="0.02578516065" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="7Fq-LP-pud">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Fq-LP-pud" id="QVx-Bk-8rD">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5G7-km-luq" customClass="UIButtonTinted">
+                                                    <rect key="frame" x="113" y="11" width="94" height="66"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.085792874069999997" green="0.46711628690000001" blue="0.030053602280000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" image="child_new_post-128.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="getSupport:" destination="vXC-Fi-wlj" eventType="touchUpInside" id="NDI-pl-3ur"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="vXC-Fi-wlj" id="qRM-gH-4A2"/>
+                            <outlet property="delegate" destination="vXC-Fi-wlj" id="T9L-Ez-lpC"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Tips" image="info-75.png" id="vS0-YY-RIn"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4if-8N-CQN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-50" y="163"/>
-        </scene>
-        <!--Social-->
-        <scene sceneID="Kfs-eW-5sh">
-            <objects>
-                <viewController id="9sm-H0-Xti" customClass="BrowserViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZSa-CZ-FST">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="purpleGradient.png" id="A5k-Nt-ZkP">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Social" id="VNx-Mp-hlG"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ROQ-r7-pyh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="472" y="48"/>
+            <point key="canvasLocation" x="-23" y="155"/>
         </scene>
         <!--Keyboard-->
         <scene sceneID="LtJ-AF-VoK">
@@ -276,7 +384,7 @@
                         <outlet property="delegate" destination="ZXz-RO-yF7" id="ojM-wr-Gff"/>
                         <segue destination="ZmZ-La-tYu" kind="relationship" relationship="viewControllers" id="ZTw-Fm-WAl"/>
                         <segue destination="0EA-mt-rW5" kind="relationship" relationship="viewControllers" id="ObJ-CD-nyF"/>
-                        <segue destination="Kqe-X3-rEb" kind="relationship" relationship="viewControllers" id="cTm-JP-goe"/>
+                        <segue destination="vXC-Fi-wlj" kind="relationship" relationship="viewControllers" id="PH3-gn-jtA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="34X-n2-gFv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -287,12 +395,16 @@
     <resources>
         <image name="2f_tap-75.png" width="32" height="32"/>
         <image name="blueGradient.png" width="320" height="568"/>
-        <image name="greenGradient.png" width="320" height="568"/>
+        <image name="child_new_post-128.png" width="64" height="64"/>
+        <image name="enter-128.png" width="64" height="64"/>
+        <image name="eyes.png" width="64" height="64"/>
         <image name="info-75.png" width="25" height="25"/>
         <image name="keyboard-75.png" width="32" height="32"/>
+        <image name="like-128.png" width="64" height="64"/>
         <image name="playMovie.png" width="512" height="512"/>
-        <image name="purpleGradient.png" width="320" height="568"/>
+        <image name="question-128.png" width="64" height="64"/>
         <image name="redGradient.png" width="320" height="568"/>
+        <image name="unlike.png" width="64" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

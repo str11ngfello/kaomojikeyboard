@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomizerViewController : UIViewController <UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface CustomizerViewController : UIViewController <UIGestureRecognizerDelegate,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 
 @end

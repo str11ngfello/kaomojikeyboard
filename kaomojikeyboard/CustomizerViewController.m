@@ -47,17 +47,19 @@
 
 - (void)rebuildEmoji
 {
-    if (!self.leftFlare) self.leftFlare = @"";
-    if (!self.leftArm) self.leftArm = @"";
-    if (!self.leftBracket) self.leftBracket = @"";
-    if (!self.leftCheek) self.leftCheek = @"";
-    if (!self.leftEye) self.leftEye = @"";
-    if (!self.mouth) self.mouth = @"";
-    if (!self.rightEye) self.rightEye = @"";
-    if (!self.rightCheek) self.rightCheek = @"";
-    if (!self.rightBracket) self.rightBracket = @"";
-    if (!self.rightArm) self.rightArm = @"";
-    if (!self.rightFlare) self.rightFlare = @"";
+    if (!self.leftFlare || [self.leftFlare isEqualToString:@"none"]) self.leftFlare = @"";
+    if (!self.leftArm || [self.leftArm isEqualToString:@"none"]) self.leftArm = @"";
+    if (!self.leftBracket || [self.leftBracket isEqualToString:@"n"]) self.leftBracket = @"";
+    if (!self.leftCheek || [self.leftCheek isEqualToString:@"none"]) self.leftCheek = @"";
+    if (!self.leftEye || [self.leftEye isEqualToString:@"none"]) self.leftEye = @"";
+    if (!self.mouth || [self.mouth isEqualToString:@"none"]) self.mouth = @"";
+    if (!self.rightEye || [self.rightEye isEqualToString:@"none"]) self.rightEye = @"";
+    if (!self.rightCheek || [self.rightCheek isEqualToString:@"none"]) self.rightCheek = @"";
+    if (!self.rightBracket || [self.rightBracket isEqualToString:@"o"]) self.rightBracket = @"";
+    if (!self.rightArm || [self.rightArm isEqualToString:@"none"]) self.rightArm = @"";
+    if (!self.rightFlare || [self.rightFlare isEqualToString:@"none"]) self.rightFlare = @"";
+    
+    
     self.emoji.text = [[[[[[[[[[_leftFlare stringByAppendingString:_leftArm]
                         stringByAppendingString:_leftBracket]
                         stringByAppendingString:_leftCheek]
@@ -68,6 +70,19 @@
                         stringByAppendingString:_rightBracket]
                         stringByAppendingString:_rightArm]
                   stringByAppendingString:_rightFlare];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.mouth forKey:@"CurrentMouth"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.leftEye forKey:@"CurrentLeftEye"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.leftCheek forKey:@"CurrentLeftCheek"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.leftBracket forKey:@"CurrentLeftBracket"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.leftArm forKey:@"CurrentLeftArm"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.leftFlare forKey:@"CurrentLeftFlare"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.rightEye forKey:@"CurrentRightEye"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.rightCheek forKey:@"CurrentRightCheek"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.rightBracket forKey:@"CurrentRightBracket"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.rightArm forKey:@"CurrentRightArm"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.rightFlare forKey:@"CurrentRightFlare"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)loadParts
@@ -76,33 +91,32 @@
     
         self.parts = @{ @"Eyes":
                             
-                            @[@"none",@"•",@"◦",@"●",@"○",@"◎",@"◉",@"⦿",@"⁌",@"⁍",@"-",@"■",@"□",@"✪",@"◇",@"◆",@"﹅",@"﹆",@"◯",@"◓",@"◐",@"◑",@"◒",@"◔",@"◕",@"◴",@"◵",@"◶",@"◷",@"Ꙩ",@"❁",@"♥",@"＾",@"￣",@"°",@"❛",@"⌒",@"◕",@"╥",@"≖",@"◉", @"・", @"ಠ", @"◠", @"✖", @"˘", @"●", @"◔", @"O", @"¬", @"T", @"╹", @"◡", @"ಥಿ", @"ಥ", @"①", @"★", @"ー", @">", @"•̀", @"╯", @"｀", @"^",@"･",@"⊙", @"ò", @"⌣̀", @"≧", @"｀・", @"´", @"´"],
+                            @[@"none",@"•",@"◦",@"●",@"○",@"◎",@"⊙",@"◉",@"⦿",@"Ꙩ",@"ಠ",@"ಥಿ", @"ಥ",@"⌒",@"◡",@"⁌",@"⁍",@"Ꙩ",@"•̀",@"⌣̀",@"-",@"✖",@"✘",@"■",@"□",@"★",@"✪",@"◇",@"◆",@"▼",@"﹅",@"﹆",
+                              @"◯",@"◓",@"◐",@"◑",@"◒",@"◔",@"◕",@"◴",@"◵",@"◶",@"◷",@"＾",@"￣",@"°",@"❛",@"◕",@"╥",@"≖",  @"˘", @"◔", @"O", @"¬", @"T", @"╹",   @"ↀ",  @"ー", @">", @"<",@"◣",@"◢",  @"^",   @"≧",@"≦", @"⋋",@"⋌",@"´",@"►",@"◄",@"•᷅",@"•᷄",@"‾᷆",@"‾᷇",@"ꉺ",@"˃̶",@"˂̶",@"Ơ̴̴̴̴̴̴͡",@"◞ิ",@"◟ิ",],
                           
                     
                        @"Mouths":
-                           @[@"ヮ", @"ε", @"з", @"▽", @"∀", @"Д", @"_", @"～", @"ڡ", @"﹏", @"╭╮", @"益", @"▃", @"ᴥ", @"ω", @"A", @"口", @"︿", @"㉨", @"◇", @"△", @"⊆", @"‿", @"3", @"오"],
+                           @[@"none", @"‿",@"╭╮",@"_", @"～", @"ڡ", @"﹏",@"ᴥ",@"ヮ", @"오",@"ε", @"з",@"ω",@"ʖ̫", @"㉨",@"⊆",@"▽",  @"口", @"︿", @"◇", @"△",@"ᗣ",@"꒶̭",@"ȏ",@"へ",@"人",@"エ",@"ᐛ",@"ཅ",@"␣̍",@"∀", @"Д", @"益",@"皿", @"▃", @"A",@"౪"],
 
                         @"Brackets":
-                        @[@"()",@"❨❩",@"❪❫",@"⟨⟩",@"{}",@"⎛⎞",@"⎝⎠",@"༼༽",@"ʕʔ",@"〔〕",@"[]",@"／＼",@"⎟⎢",@"⟪⟫",@"«»",@"<>",@"⎩⎭",@"⎣⎦",@"⎧⎫",@"【】"],
+                        @[@"none",@"()",@"❨❩",@"❪❫",@"⎛⎞",@"⎝⎠",@"༼༽",@"ʕʔ",@"／＼",@"⟨⟩",@"{}",@"〔〕"],
+                       @"Left Arms":
+                            @[@"none", @"ლ",@"ᕙ",@"ᕦ",@"୧",@"щ",@"Ψ",@"＜",@"└", @"┌", @"╭",@"凸",@"┌∩┐", @"o", @"＼", @"¯\\", @"ヽ",  @"シ",  @"ԅ",@"へ"],
                        @"Right Arms":
-                            @[@"づ", @"ノ", @"◜", @"ง", @"┘", @"╮", @"☞", @"～", @"っ", @"／", @"/¯", @"ᕗ", @"＞", @"~", @"⊃"],
+                            @[@"none",@"ლ",@"ᕗ",@"ᕤ",@"୨",@"щ",@"Ψ",@"＞",@"づ", @"ノ", @"◜", @"ง", @"┘", @"╮",@"凸",@"┌∩┐",@"☞", @"～", @"っ", @"／", @"/¯", @"~", @"⊃",@"へ"],
                         
-                        @"Left Arms":
-                            @[@"ლ", @"└", @"┌", @"╭", @"щ", @"o", @"＼", @"¯\\", @"ヽ", @"ᕙ", @"シ", @"＜", @"ԅ"],
                         
                         @"Cheeks":
-                            @[@"✿", @"❁", @"๑", @"＠", @"；", @"҂", @"=", @"*", @"｡", @"╬", @"∴"],
+                            @[@"none",@"✿", @"❁", @"๑", @"＠", @"；", @"҂", @"=", @"*", @"｡", @"╬", @"∴",@"メ",],
                         
-                        @"Left Flares":
-                            @[],
-                        @"Right Flares":
-                            @[],
+                        @"Flares":
+                            @[@"none"],
                        };
     
     
     
     
-    self.categories = @[@"Mouths",@"Eyes",@"Brackets",@"Right Arms",@"Left Arms",@"Cheeks",@"Left Flares",@"Right Flares"];
+    self.categories = @[@"Mouths",@"Eyes",@"Cheeks",@"Brackets",@"Left Arms",@"Right Arms"];
     
     
 }
@@ -121,7 +135,7 @@
     self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
     [self.defaults synchronize];
     
-    NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
+    //NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
    
     if (![self.defaults objectForKey:@"CustomArray"])
     {
@@ -132,7 +146,7 @@
     [self loadParts];
     
     self.scrollView.pagingEnabled = YES;
-    self.scrollView.contentSize = CGSizeMake(320 * [self.categories count], self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width * [self.categories count], self.scrollView.frame.size.height);
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.scrollsToTop = NO;
@@ -148,7 +162,7 @@
     self.catLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
 
     self.catLabel.textAlignment = NSTextAlignmentCenter;
-    self.catLabel.text = @"Eyes";
+    self.catLabel.text = [self.categories objectAtIndex:0];
     
     self.statusLabel = [[TOMSMorphingLabel alloc] initWithFrame:CGRectMake(160-75,-5,150,30)];
     self.statusLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
@@ -164,7 +178,7 @@
     {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 25;
-        ADLivelyCollectionView* colview = [[ADLivelyCollectionView alloc] initWithFrame:CGRectMake(i*320, 0, 320, self.scrollView.frame.size.height) collectionViewLayout:layout];
+        ADLivelyCollectionView* colview = [[ADLivelyCollectionView alloc] initWithFrame:CGRectMake(i*[[UIScreen mainScreen] bounds].size.width, 0, 320, self.scrollView.frame.size.height) collectionViewLayout:layout];
         
         [colview setDataSource:self];
         [colview setDelegate:self];
@@ -172,6 +186,13 @@
         //[colview registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind: UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
         [colview registerNib:[UINib nibWithNibName:@"LDCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
         colview.initialCellTransformBlock = ADLivelyTransformHelix;
+        
+        UILongPressGestureRecognizer* press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(partHold:)];
+        [press setDelegate:self];
+        press.minimumPressDuration = .5;
+        press.delaysTouchesBegan = YES;
+        [colview addGestureRecognizer:press];
+
         
         colview.tag = i;
         [self.categoryViews addObject:colview];
@@ -183,36 +204,33 @@
     [self.scrollView setNeedsDisplay];
     [self.scrollView setNeedsLayout];
 
-    
-    self.leftBracket = @"(";
-    self.leftEye = @"◉";
-    self.mouth = @"‿";
-    self.rightEye = @"◉";
-    self.rightBracket = @")";
+    if (![[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentMouth"])
+    {
+        self.leftArm = @"ლ";
+        self.leftBracket = @"(";
+        self.leftEye = @"⦿";
+        self.mouth = @"ڡ";
+        self.rightEye = @"⦿";
+        self.rightBracket = @")";
+        self.rightArm = @"ლ";
+    }
+    else
+    {
+        self.mouth = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentMouth"];
+        self.leftEye = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentLeftEye"];
+        self.leftCheek = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentLeftCheek"];
+        self.leftBracket = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentLeftBracket"];
+        self.leftArm = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentLeftArm"];
+        self.leftFlare = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentLeftFlare"];
+        self.rightEye = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentRightEye"];
+        self.rightCheek = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentRightCheek"];
+        self.rightBracket = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentRightBracket"];
+        self.rightArm = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentRightArm"];
+        self.rightFlare = [[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentRightFlare"];
+       
+    }
     [self rebuildEmoji];
     
-    
-    
-  /*  [self.saveToKeyboardButton setIsAwesome:YES];
-    [self.saveToKeyboardButton setButtonText:@"Save To Keyboard"];
-    //[self.saveToKeyboardButton setButtonIcon:@"fa-fire"];
-    [self.saveToKeyboardButton setTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor whiteColor]} forUIControlState:UIControlStateNormal];
-    [self.saveToKeyboardButton setIconPosition:IconPositionLeft];
-    [self.saveToKeyboardButton setBackgroundColor:[UIColor colorWithRed:205.0f/255 green:35.0f/255 blue:44.0f/255 alpha:1.0] forUIControlState:UIControlStateNormal];
-    [self.saveToKeyboardButton setBackgroundColor:[UIColor colorWithRed:244.0f/255 green:61.0f/255 blue:91.0f/255 alpha:1.0] forUIControlState:UIControlStateHighlighted];
-    [self.saveToKeyboardButton setRadius:0.0];
-    
-    [self.randomizeButton setIsAwesome:YES];
-   //[self.randomizeButton setButtonText:@"Randomize"];
-    [self.randomizeButton setButtonIcon:@"fa-pinterest"];
-    [self.randomizeButton setTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:27],NSForegroundColorAttributeName:[UIColor whiteColor]} forUIControlState:UIControlStateNormal];
-    [self.randomizeButton setIconPosition:IconPositionLeft];
-    [self.randomizeButton setBackgroundColor:[UIColor colorWithRed:205.0f/255 green:35.0f/255 blue:44.0f/255 alpha:1.0] forUIControlState:UIControlStateNormal];
-    [self.randomizeButton setBackgroundColor:[UIColor colorWithRed:244.0f/255 green:61.0f/255 blue:91.0f/255 alpha:1.0] forUIControlState:UIControlStateHighlighted];
-    [self.randomizeButton setRadius:5];
-*/
-
-
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -226,7 +244,131 @@
     
 }
 
+- (void)partHold:(UILongPressGestureRecognizer *)sender {
+    if ( sender.state == UIGestureRecognizerStateBegan ) {
+        
+        UICollectionView* colView = (UICollectionView*)sender.view;
+        CGPoint p = [sender locationInView:colView];
+        
+        NSIndexPath *indexPath = [colView indexPathForItemAtPoint:p];
+        if (indexPath == nil){
+            NSLog(@"couldn't find index path");
+        } else {
+            // get the cell at indexPath (the one you long pressed)
+            UICollectionViewCell* cell = [colView cellForItemAtIndexPath:indexPath];
+            
+            //If we are IN favorites, remove the kaomoji, otherwise add it
+            NSMutableArray* favorites = [[self.defaults objectForKey:@"FavoriteArray"] mutableCopy];
+            UILabel* l = (UILabel*)[cell viewWithTag:100];
+            
+            //stop if this is a padding cell
+            if ([l.text isEqualToString:@""])
+                return;
+            
+            if ([[self.categories objectAtIndex:colView.tag] isEqualToString:@"Eyes"])
+            {
+                
+                RIButtonItem *leftEye = [RIButtonItem itemWithLabel:@"Left Eye" action:^{
+                    self.leftEye = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                }];
+                
+                RIButtonItem *rightEye = [RIButtonItem itemWithLabel:@"Right Eye" action:^{
+                    self.rightEye = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                RIButtonItem *bothEyes = [RIButtonItem itemWithLabel:@"Both Eyes" action:^{
+                    self.leftEye = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    self.rightEye = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"Which eye?" cancelButtonItem:[RIButtonItem itemWithLabel:@"Cancel" action:nil] destructiveButtonItem:nil otherButtonItems:leftEye,rightEye,bothEyes, nil];
+                [actionSheet showInView:self.view];
+            }
+            /*else if ([[self.categories objectAtIndex:colView.tag] isEqualToString:@"Arms"])
+            {
+                
+                RIButtonItem *leftArm = [RIButtonItem itemWithLabel:@"Left Arm" action:^{
+                    self.leftArm = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                }];
+                
+                RIButtonItem *rightArm = [RIButtonItem itemWithLabel:@"Right Arm" action:^{
+                    self.rightArm = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                RIButtonItem *bothArms = [RIButtonItem itemWithLabel:@"Both Arms" action:^{
+                    self.leftArm = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    self.rightArm = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"Which arm?" cancelButtonItem:[RIButtonItem itemWithLabel:@"Cancel" action:nil] destructiveButtonItem:nil otherButtonItems:leftArm,rightArm,bothArms, nil];
+                [actionSheet showInView:self.view];
+            }*/
+            else if ([[self.categories objectAtIndex:colView.tag] isEqualToString:@"Flares"])
+            {
+                
+                RIButtonItem *leftFlare = [RIButtonItem itemWithLabel:@"Left Flare" action:^{
+                    self.leftFlare = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                }];
+                
+                RIButtonItem *rightFlare = [RIButtonItem itemWithLabel:@"Right Flare" action:^{
+                    self.rightFlare = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                RIButtonItem *bothFlares = [RIButtonItem itemWithLabel:@"Both Flares" action:^{
+                    self.leftFlare = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    self.rightFlare = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"Which flare?" cancelButtonItem:[RIButtonItem itemWithLabel:@"Cancel" action:nil] destructiveButtonItem:nil otherButtonItems:leftFlare,rightFlare,bothFlares, nil];
+                [actionSheet showInView:self.view];
 
+            }
+            else if ([[self.categories objectAtIndex:colView.tag] isEqualToString:@"Cheeks"])
+            {
+                
+                RIButtonItem *leftCheek = [RIButtonItem itemWithLabel:@"Left Cheek" action:^{
+                    self.leftCheek = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                }];
+                
+                RIButtonItem *rightCheek = [RIButtonItem itemWithLabel:@"Right Cheek" action:^{
+                    self.rightCheek = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                RIButtonItem *bothCheeks = [RIButtonItem itemWithLabel:@"Both Cheeks" action:^{
+                    self.leftCheek = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    self.rightCheek = [[self.parts objectForKey:[self.categories objectAtIndex:colView.tag]] objectAtIndex:indexPath.row];
+                    [self rebuildEmoji];
+                    
+                }];
+                
+                UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:@"Which flare?" cancelButtonItem:[RIButtonItem itemWithLabel:@"Cancel" action:nil] destructiveButtonItem:nil otherButtonItems:leftCheek,rightCheek,bothCheeks, nil];
+                [actionSheet showInView:self.view];
+
+            }
+
+
+            
+        }
+    }
+}
 
 /*- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -314,11 +456,17 @@
     }
     
 
-    cell.textLabel.font = [UIFont systemFontOfSize:26];
+    if (indexPath.row == 0)
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+    else
+        cell.textLabel.font = [UIFont systemFontOfSize:26];
     
     
     cell.textLabel.text = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
  
+    if (cell.textLabel.text.length > 2)
+        cell.textLabel.font = [UIFont systemFontOfSize:18];
+    
     cell.textLabel.textColor = [UIColor blackColor];
    
     
@@ -327,7 +475,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [((LDCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath]) selectionEffect];
+   // [((LDCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath]) selectionEffect];
     
     if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Mouths"])
     {
@@ -352,13 +500,10 @@
     else if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Right Arms"])
     {
         self.rightArm = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
-    }
-    else if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Left Flares"])
+     }
+    else if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Flares"])
     {
         self.leftFlare = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
-    }
-    else if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Right Flares"])
-    {
         self.rightFlare = [[self.parts objectForKey:[self.categories objectAtIndex:collectionView.tag]] objectAtIndex:indexPath.row];
     }
     else if ([[self.categories objectAtIndex:collectionView.tag] isEqualToString:@"Cheeks"])
@@ -379,6 +524,9 @@
 }
 
 - (IBAction)saveToKeyboard:(id)sender {
+    if (self.emoji.text.length == 0)
+        return;
+    
     NSMutableArray* customs = [[self.defaults objectForKey:@"CustomArray"] mutableCopy];
     bool found = false;
     for (NSString* s in customs)
@@ -395,6 +543,23 @@
         [customs insertObject:self.emoji.text atIndex:0];
         [self.defaults setObject:customs forKey:@"CustomArray"];
         [self.defaults synchronize];
+        [SVProgressHUD showSuccessWithStatus:@"Kaomoji Saved!"];
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SavedToKeyboardInformed"])
+        {
+            [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"SavedToKeyboardInformed"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Saved Kaomoji"
+                                                             message:@"You can find all your saved Kaomojis in the keyboard on the last page titled \"Customized\""
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
+
+        }
+    }
+    else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"Kamoji Already Exists"];
     }
     
 }
@@ -427,8 +592,8 @@
     self.rightEye = [self.parts[@"Eyes"] objectAtIndex:random];
  
     random = arc4random()%((NSArray*)self.parts[@"Cheeks"]).count;
-    self.leftEye = [self.parts[@"Cheeks"] objectAtIndex:random];
-    self.rightEye = [self.parts[@"Cheeks"] objectAtIndex:random];
+    self.leftCheek = [self.parts[@"Cheeks"] objectAtIndex:random];
+    self.rightCheek = [self.parts[@"Cheeks"] objectAtIndex:random];
 
     self.leftFlare = @"";
     self.leftArm = [self.parts[@"Left Arms"] objectAtIndex:arc4random()%((NSArray*)self.parts[@"Left Arms"]).count];

@@ -29,16 +29,15 @@
     //NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
 
     self.tabBarController.tabBar.hidden = true;
-    _instructions.center = CGPointMake(_instructions.center.x,[[UIScreen mainScreen] bounds].size.height+300);
+    _instructionsLabel.center = CGPointMake([[UIScreen mainScreen] bounds].size.width/2.0,[[UIScreen mainScreen] bounds].size.height+300);
     _instructionsLabel.text = @"Let's turn on your Kaomoji Keyboard";
-    _instructions.alpha = 0;
+    _instructionsLabel.alpha = 0;
     _playButton.hidden = true;
     _playButton.transform = CGAffineTransformMakeScale(0, 0);
-    self.tabBarController.tabBar.tintColor = [UIColor flatBlueColor];
-
+   
     
     
-   /* AVPlayer *player = [AVPlayer playerWithURL:[[NSBundle mainBundle] URLForResource:@"iphoneKeyboard" withExtension:@"mov"]];
+   /* AVPlayer *player = [AVPlayer playerWithURL:[[NSBundle mainBundle] URLForResource:@"iphoneKeyboard" withExtension:@"mp4"]];
     
     AVPlayerLayer *layer = [AVPlayerLayer layer];
     
@@ -64,7 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.tintColor = [UIColor flatBlueColor];
+    self.tabBarController.tabBar.tintColor = [UIColor flatPurpleColor];
     
     //First launch?
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"VideoStarted"])
@@ -75,8 +74,8 @@
               initialSpringVelocity: 1
                             options: 0
                          animations: ^{
-                             _instructions.center = self.view.center;
-                             _instructions.alpha = 1;
+                             _instructionsLabel.center = self.view.center;
+                             _instructionsLabel.alpha = 1;
                                      }
                          completion: ^(BOOL finished){
                              
@@ -86,7 +85,7 @@
                                    initialSpringVelocity: .8
                                                  options: 0
                                               animations: ^{
-                                                  _instructions.center = CGPointMake(_instructions.center.x,_instructions.frame.size.height/2);
+                                                  _instructionsLabel.center = CGPointMake(_instructionsLabel.center.x,(_instructionsLabel.frame.size.height/2));
                                                   
                                               }
                                               completion: ^(BOOL finished){
@@ -115,7 +114,7 @@
     //After video started at least once?
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"VideoStarted"])
     {
-        _instructions.hidden = true;
+        _instructionsLabel.hidden = true;
         self.tabBarController.tabBar.hidden = false;
         _playButton.hidden = false;
         _playButton.transform = CGAffineTransformMakeScale(1, 1);

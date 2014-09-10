@@ -30,6 +30,8 @@
                                     UIViewAutoresizingFlexibleBottomMargin ;
     
     [self.tableView setBackgroundView:imageView];
+    
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0,0,0,0)] ];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,6 +45,11 @@
     
     self.tabBarController.tabBar.tintColor = [UIColor flatGreenColorDark];
 }
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor = [UIColor clearColor];
+}
+
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

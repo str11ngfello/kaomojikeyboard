@@ -178,7 +178,7 @@
     {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 25;
-        ADLivelyCollectionView* colview = [[ADLivelyCollectionView alloc] initWithFrame:CGRectMake(i*[[UIScreen mainScreen] bounds].size.width, 0, 320, self.scrollView.frame.size.height) collectionViewLayout:layout];
+        ADLivelyCollectionView* colview = [[ADLivelyCollectionView alloc] initWithFrame:CGRectMake(i*[[UIScreen mainScreen] bounds].size.width, 0, [[UIScreen mainScreen] bounds].size.width, self.scrollView.frame.size.height) collectionViewLayout:layout];
         
         [colview setDataSource:self];
         [colview setDelegate:self];

@@ -18,8 +18,34 @@
     
     [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"VideoStarted"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    self.player = [[AVPlayer alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"iphoneKeyboard" withExtension:@"mov"]];
+    self.player = [[AVPlayer alloc] initWithURL:[[NSBundle mainBundle] URLForResource:@"iphoneKeyboard" withExtension:@"mp4"]];
     [self.player play];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[self.player currentItem]];
+    
+
 }
 
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    [self dismissViewControllerAnimated:true completion:nil];
+    
+    
+    
+    [[[UIAlertView alloc] initWithTitle:@"Open Settings?"
+                                message:@"Open settings to add the Kaomoji Keyboard? This process is required in order to use the keyboard."
+                       cancelButtonItem:[RIButtonItem itemWithLabel:@"Yes" action:^{
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
+                                                    UIApplicationOpenSettingsURLString]];
+    }]
+                       otherButtonItems:[RIButtonItem itemWithLabel:@"No" action:^{
+        
+    }], nil] show];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:nil];
+}
 @end

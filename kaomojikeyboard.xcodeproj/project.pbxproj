@@ -14,6 +14,7 @@
 		DC10DEF919A194970027F37D /* TOMSMorphingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = DC10DEF719A194970027F37D /* TOMSMorphingLabel.m */; };
 		DC33BD8419BCF5230088AB9A /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DC33BD8319BCF5230088AB9A /* CustomButton.m */; };
 		DC33BD8619BCF6F10088AB9A /* update-75@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC33BD8519BCF6F10088AB9A /* update-75@2x.png */; };
+		DC354AA919C019B900B9A4CF /* iphoneKeyboard.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = DC354AA819C019B900B9A4CF /* iphoneKeyboard.mp4 */; };
 		DC5F430F1998621B0077BF33 /* KeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC5F430E1998621B0077BF33 /* KeyboardView.xib */; };
 		DC5F43121998663F0077BF33 /* Keyboardview.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5F43111998663F0077BF33 /* Keyboardview.m */; };
 		DC5F431519986DA90077BF33 /* ADLivelyCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC5F431419986DA90077BF33 /* ADLivelyCollectionView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -24,7 +25,6 @@
 		DC6308B519BB8FA50082E20E /* info-75@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC6308B419BB8FA50082E20E /* info-75@2x.png */; };
 		DC6308B819BB90450082E20E /* TipsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6308B719BB90450082E20E /* TipsViewController.m */; };
 		DC6308BD19BCA87D0082E20E /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6308BC19BCA87D0082E20E /* TabBarController.m */; };
-		DC6308C019BCAC010082E20E /* iphoneKeyboard.mov in Resources */ = {isa = PBXBuildFile; fileRef = DC6308BF19BCAC010082E20E /* iphoneKeyboard.mov */; };
 		DC6308C319BCAE070082E20E /* MovieController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6308C219BCAE070082E20E /* MovieController.m */; };
 		DC6308C819BCB2990082E20E /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6308C419BCAE530082E20E /* AVKit.framework */; };
 		DC6308CC19BCB5950082E20E /* playMovie@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC6308CB19BCB5950082E20E /* playMovie@2x.png */; };
@@ -37,7 +37,6 @@
 		DC639ACF19985E3800ED1449 /* keyboardext.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DC639AC619985E3800ED1449 /* keyboardext.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DC6B089919B8750400F63A59 /* blueGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC6B089819B8750400F63A59 /* blueGradient@2x.png */; };
 		DC6B089C19B9F15900F63A59 /* greenGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC6B089A19B9F15900F63A59 /* greenGradient@2x.png */; };
-		DC6B089D19B9F15900F63A59 /* purpleGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC6B089B19B9F15900F63A59 /* purpleGradient@2x.png */; };
 		DC6B08C019BB43DA00F63A59 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DC6B089F19BB43DA00F63A59 /* LICENSE */; };
 		DC6B08C119BB43DA00F63A59 /* MDCGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6B08A319BB43DA00F63A59 /* MDCGeometry.m */; };
 		DC6B08C219BB43DA00F63A59 /* MDCViewState.m in Sources */ = {isa = PBXBuildFile; fileRef = DC6B08A619BB43DA00F63A59 /* MDCViewState.m */; };
@@ -78,7 +77,6 @@
 		DCBDB62519BEB0A600BA1D6D /* eyes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBDB62419BEB0A600BA1D6D /* eyes@2x.png */; };
 		DCBDB62719BEB6EC00BA1D6D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCBDB62619BEB6EC00BA1D6D /* MessageUI.framework */; };
 		DCBDB62919BEB92E00BA1D6D /* child_new_post-128@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBDB62819BEB92E00BA1D6D /* child_new_post-128@2x.png */; };
-		DCBDB62B19BEBCD700BA1D6D /* enter-128@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCBDB62A19BEBCD700BA1D6D /* enter-128@2x.png */; };
 		DCD7370A19B80C5A004D15D2 /* redGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD7370919B80C5A004D15D2 /* redGradient@2x.png */; };
 		DCD827DB19AFDAB2008076A8 /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD827DA19AFDAB2008076A8 /* world@2x.png */; };
 		DCD827DC19AFDAB2008076A8 /* world@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD827DA19AFDAB2008076A8 /* world@2x.png */; };
@@ -163,6 +161,7 @@
 		DC33BD8219BCF5230088AB9A /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
 		DC33BD8319BCF5230088AB9A /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		DC33BD8519BCF6F10088AB9A /* update-75@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "update-75@2x.png"; sourceTree = "<group>"; };
+		DC354AA819C019B900B9A4CF /* iphoneKeyboard.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = iphoneKeyboard.mp4; sourceTree = "<group>"; };
 		DC5F430E1998621B0077BF33 /* KeyboardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardView.xib; sourceTree = "<group>"; };
 		DC5F43101998663F0077BF33 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardView.h; sourceTree = "<group>"; };
 		DC5F43111998663F0077BF33 /* Keyboardview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Keyboardview.m; sourceTree = "<group>"; };
@@ -178,7 +177,6 @@
 		DC6308B719BB90450082E20E /* TipsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipsViewController.m; sourceTree = "<group>"; };
 		DC6308BB19BCA87D0082E20E /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		DC6308BC19BCA87D0082E20E /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		DC6308BF19BCAC010082E20E /* iphoneKeyboard.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = iphoneKeyboard.mov; sourceTree = "<group>"; };
 		DC6308C119BCAE070082E20E /* MovieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieController.h; sourceTree = "<group>"; };
 		DC6308C219BCAE070082E20E /* MovieController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieController.m; sourceTree = "<group>"; };
 		DC6308C419BCAE530082E20E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -199,7 +197,6 @@
 		DC639ACB19985E3800ED1449 /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
 		DC6B089819B8750400F63A59 /* blueGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueGradient@2x.png"; sourceTree = "<group>"; };
 		DC6B089A19B9F15900F63A59 /* greenGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "greenGradient@2x.png"; sourceTree = "<group>"; };
-		DC6B089B19B9F15900F63A59 /* purpleGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "purpleGradient@2x.png"; sourceTree = "<group>"; };
 		DC6B089F19BB43DA00F63A59 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		DC6B08A219BB43DA00F63A59 /* MDCGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDCGeometry.h; sourceTree = "<group>"; };
 		DC6B08A319BB43DA00F63A59 /* MDCGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDCGeometry.m; sourceTree = "<group>"; };
@@ -253,7 +250,6 @@
 		DCBDB62419BEB0A600BA1D6D /* eyes@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eyes@2x.png"; sourceTree = "<group>"; };
 		DCBDB62619BEB6EC00BA1D6D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		DCBDB62819BEB92E00BA1D6D /* child_new_post-128@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "child_new_post-128@2x.png"; sourceTree = "<group>"; };
-		DCBDB62A19BEBCD700BA1D6D /* enter-128@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enter-128@2x.png"; sourceTree = "<group>"; };
 		DCD7370919B80C5A004D15D2 /* redGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redGradient@2x.png"; sourceTree = "<group>"; };
 		DCD827DA19AFDAB2008076A8 /* world@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "world@2x.png"; path = "../keyboardext/world@2x.png"; sourceTree = "<group>"; };
 		DCD827DD19AFDB6D008076A8 /* globe-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "globe-40@2x.png"; path = "../keyboardext/globe-40@2x.png"; sourceTree = "<group>"; };
@@ -364,7 +360,7 @@
 		DC6308BE19BCABF70082E20E /* movies */ = {
 			isa = PBXGroup;
 			children = (
-				DC6308BF19BCAC010082E20E /* iphoneKeyboard.mov */,
+				DC354AA819C019B900B9A4CF /* iphoneKeyboard.mp4 */,
 			);
 			name = movies;
 			sourceTree = "<group>";
@@ -572,7 +568,6 @@
 		DC8C19E219B3557F003DE825 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				DCBDB62A19BEBCD700BA1D6D /* enter-128@2x.png */,
 				DCBDB62819BEB92E00BA1D6D /* child_new_post-128@2x.png */,
 				DCBDB62419BEB0A600BA1D6D /* eyes@2x.png */,
 				DCBDB61E19BEAF4A00BA1D6D /* unlike@2x.png */,
@@ -584,7 +579,6 @@
 				DC6308B419BB8FA50082E20E /* info-75@2x.png */,
 				DC6308B219BB8C1A0082E20E /* 2f_tap-75@2x.png */,
 				DC6B089A19B9F15900F63A59 /* greenGradient@2x.png */,
-				DC6B089B19B9F15900F63A59 /* purpleGradient@2x.png */,
 				DC6B089819B8750400F63A59 /* blueGradient@2x.png */,
 				DCD7370919B80C5A004D15D2 /* redGradient@2x.png */,
 				DC10DEF119A126B90027F37D /* return@2x.png */,
@@ -797,13 +791,12 @@
 			files = (
 				DC33BD8619BCF6F10088AB9A /* update-75@2x.png in Resources */,
 				DCD7370A19B80C5A004D15D2 /* redGradient@2x.png in Resources */,
-				DCBDB62B19BEBCD700BA1D6D /* enter-128@2x.png in Resources */,
+				DC354AA919C019B900B9A4CF /* iphoneKeyboard.mp4 in Resources */,
 				DCBDB61919BEACC100BA1D6D /* question-128@2x.png in Resources */,
 				DC6308B319BB8C1A0082E20E /* 2f_tap-75@2x.png in Resources */,
 				DCBDB62919BEB92E00BA1D6D /* child_new_post-128@2x.png in Resources */,
 				DC8C19DF19B3542B003DE825 /* keyboard-75@2x.png in Resources */,
 				DCD827E119AFDBDB008076A8 /* globe-32@2x.png in Resources */,
-				DC6B089D19B9F15900F63A59 /* purpleGradient@2x.png in Resources */,
 				DCBDB60B19BDD9DF00BA1D6D /* SVProgressHUD.bundle in Resources */,
 				DC6B089C19B9F15900F63A59 /* greenGradient@2x.png in Resources */,
 				DCBDB62519BEB0A600BA1D6D /* eyes@2x.png in Resources */,
@@ -816,7 +809,6 @@
 				DCE5CFD419BB80D700216C6B /* LICENSE in Resources */,
 				DC639AAD19985DBF00ED1449 /* Images.xcassets in Resources */,
 				DCD827DB19AFDAB2008076A8 /* world@2x.png in Resources */,
-				DC6308C019BCAC010082E20E /* iphoneKeyboard.mov in Resources */,
 				DC6B089919B8750400F63A59 /* blueGradient@2x.png in Resources */,
 				DC6308AF19BB88CB0082E20E /* ProfileCard.xib in Resources */,
 				DCBDB61D19BEAEFA00BA1D6D /* close-128.png in Resources */,

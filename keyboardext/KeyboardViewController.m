@@ -649,7 +649,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [((LDCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath]) selectionEffect];
+    //[((LDCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath]) selectionEffect];
 
     if (collectionView.tag == 0)
     {
@@ -821,7 +821,7 @@
                                 @"٩(^ᴗ^)۶",
                                 @"٩(●˙▿˙●)۶",
                                 @"(❁´◡`❁)",
-                                @"(❁◠‿‿◠❁)",
+                               
                                 ],
                            
                           @"Sad":
@@ -1072,12 +1072,10 @@
                          @"♪┌(ಥ‿ಥ)┘♪",
                          @"♪└(◉‿◉)┐♪",
                          @"♪└(ꙨꙨ)┐♪",
-                          @"♪└(○‿○)┐♪",
                           @"♪└(☼‿☼)┐♪",
                           @"♪└(◔‿◔)┐♪",
                          @"♪└(•‿•)┐♪",
                          @"♪└(◕‿◕)┐♪",
-                         @"♪└(･‿･)┐♪",
                             ],
                            
                            @"Winking":
@@ -1181,7 +1179,7 @@
                 @"Hugging":
                     @[@"ლ(́◉◞౪◟◉‵ლ)",
                       @"ლ(╹◡╹ლ)",
-                      @"(っ˘̩╭╮˘̩)っ",
+                      @"(っ˘̩‿˘̩)っ",
                       @"ლ(´ڡ`ლ)",
                       @"⊂(◉‿◉)つ",
                       @"(づ￣ ³￣)づ",

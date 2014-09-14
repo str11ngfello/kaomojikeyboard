@@ -35,12 +35,12 @@
     
     [[[UIAlertView alloc] initWithTitle:@"Open Settings?"
                                 message:@"Open settings to add the Kaomoji Keyboard? This process is required in order to use the keyboard."
-                       cancelButtonItem:[RIButtonItem itemWithLabel:@"Yes" action:^{
+                       cancelButtonItem:[RIButtonItem itemWithLabel:@"No" action:^{
+        
+    }]
+                       otherButtonItems:[RIButtonItem itemWithLabel:@"Yes" action:^{
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:
                                                     UIApplicationOpenSettingsURLString]];
-    }]
-                       otherButtonItems:[RIButtonItem itemWithLabel:@"No" action:^{
-        
     }], nil] show];
 }
 

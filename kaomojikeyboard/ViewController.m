@@ -24,8 +24,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
-    [self.defaults synchronize];
+    //self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
+    //[self.defaults synchronize];
     //NSLog(@"containing app - %@",[self.defaults objectForKey:@"CustomArray"]);
 
     self.tabBarController.tabBar.hidden = true;
@@ -33,7 +33,7 @@
     _instructionsLabel.text = @"Let's turn on your Kaomoji Keyboard";
     _instructionsLabel.alpha = 0;
     _playButton.hidden = true;
-    _playButton.transform = CGAffineTransformMakeScale(0, 0);
+    _playButton.transform = CGAffineTransformMakeScale(.5, .5);
    
     
     
@@ -86,7 +86,7 @@
                                                  options: 0
                                               animations: ^{
                                                   _instructionsLabel.center = CGPointMake(_instructionsLabel.center.x,(_instructionsLabel.frame.size.height/2));
-                                                  
+                                                  _instructionsLabel.alpha = 0;
                                               }
                                               completion: ^(BOOL finished){
                                                   [UIView animateWithDuration: .7

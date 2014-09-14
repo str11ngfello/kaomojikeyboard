@@ -187,7 +187,7 @@
     //Create shared defaults
     self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
     [self.defaults synchronize];
-    NSLog(@"ext app - %@",[self.defaults objectForKey:@"CustomArray"]);
+    //NSLog(@"ext app - %@",[self.defaults objectForKey:@"CustomArray"]);
     if (![self.defaults objectForKey:@"HistoryArray"])
     {
         [self.defaults setObject:[[NSMutableArray alloc] initWithCapacity:0] forKey:@"HistoryArray"];
@@ -464,14 +464,21 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
+    //Determine padding cells based on device idiom and orientation
+    int padding = 0;
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+        padding = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad?15:4;
+    else
+        padding = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad?30:4;
+    
     
     if (collectionView.tag == 0)
     {
         NSArray* favorites = [self.defaults objectForKey:@"FavoriteArray"];
         if ([favorites count] == 0)
             return 1;
-        else if ([favorites count] < 4)
-            return 4;
+        else if ([favorites count] < padding)
+            return padding;
         else
             return [favorites count];
     }
@@ -481,8 +488,8 @@
         NSArray* history = [self.defaults objectForKey:@"HistoryArray"];
         if ([history count] == 0)
             return 1;
-        else if ([history count] < 4)
-            return 4;
+        else if ([history count] < padding)
+            return padding;
         else
             return [history count];
     }
@@ -491,8 +498,8 @@
         NSArray* customs = [self.defaults objectForKey:@"CustomArray"];
         if ([customs count] == 0)
             return 1;
-        else if ([customs count] < 4)
-            return 4;
+        else if ([customs count] < padding)
+            return padding;
         else
             return [customs count];
     }
@@ -723,8 +730,21 @@
         
         [self.textDocumentProxy insertText:[emojiArray objectAtIndex:indexPath.row]];
         self.sizeOfLastEntry = [[emojiArray objectAtIndex:indexPath.row] length];
-    
+        
         [self addToHistory:[emojiArray objectAtIndex:indexPath.row]];
+        
+       /* NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:@"http://www.pbh2.com/wordpress/wp-content/uploads/2013/06/funny-gif-clown-prank.gif"]];
+        UIPasteboard *pasteBoard=[UIPasteboard generalPasteboard];
+        [pasteBoard setData:data forPasteboardType:@"com.compuserve.gif"];
+        */
+        
+        
+                //[self.textDocumentProxy insertText:[emojiArray objectAtIndex:indexPath.row]];
+        //NSData* sendData = [pasteBoard dataForPasteboardType:@"com.compuserve.gif"];
+        
+        //[self.textDocumentProxy paste:[UIImage imageWithData:sendData]];
+        
+
     }
 }
 
@@ -739,7 +759,7 @@
     if ((collectionView.tag == 0 && [favorites count] == 0) ||
         (collectionView.tag == 1 && [history count] == 0) ||
         (collectionView.tag == self.emojiCategories.count-1 && [customs count] == 0))
-        return CGSizeMake(640,130);
+        return CGSizeMake(self.scrollView.frame.size.width,self.scrollView.frame.size.height);
     else
     {
         //Get Category
@@ -798,8 +818,8 @@
     self.emojiSubCategories = @{@"Favorites":@[@"Favorite Kaomojis"],
                                 @"Recent":@[@"Recently Used"],
                                 @"Emotions":@[@"Happy",@"Sad",@"Angry",@"Love",@"Worried",@"Shocked",@"Annoyed"],
-                                @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"Flipping the Bird",@"Whatever",@"High Fiving",@"Table Flipping"],
-                                @"Characters":@[@"Dogs",@"Cats",@"Rabbits",@"Bears",@"Pigs",@"Monkeys",@"Devils",@"Zombies",@"Trolls",@"Flower Girls"],
+                                @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"The Bird",@"Whatever",@"High Fiving",@"Table Flipping"],
+                                @"Characters":@[@"Rabbits",@"Cats",@"Dogs",@"Bears",@"Pigs",@"Monkeys",@"Devils",@"Zombies",@"Trolls",@"Flower Girls"],
                                 @"Phrases":@[@"Phrases"],
                                 };
                                 
@@ -968,9 +988,8 @@
                                 @"(￣（∞）￣)",
                                 @"(｀(●●) ´)",
                                 @"ヾ(；ﾟ(OO)ﾟ)ﾉ",
-                                @"ヾ(＠＾(∞)＾＠)ノ",
-                                @"q(￣(oo)￣)p",
-                                @"╰(　´◔　ω　◔ `)╯",],
+                                @"q(￣(oo)￣)p"],
+                                
                           @"Cats":
                               @[@"(=^･ｪ･^=)",
                                 @"(=｀ω´=)",
@@ -1009,13 +1028,12 @@
                                   @"(屮゜Д゜)屮",
                                   @"ψ(*｀ー´)ψ",
                                   @"Ψ(｀◇´)Ψ",
-                                  @"←～（o｀▽´)oΨ",
+                                  @"（o｀▽´)oΨ",
                                 
                                   ],
                            @"Zombies":
                                @[@"ヘ(>_<ヘ)",
                                  @"(ʘ෴̴͜ʘ)",
-                                 @"┗( ●-﹏ ｀｡)づ",
                                  @"ヘ（。□°）ヘ",
                                  @"٩(•̤̀ᵕ•̤́๑)",
                                  @"ƪ(`▿▿▿▿´ƪ)",
@@ -1053,7 +1071,7 @@
                 
             
                     
-                    @"Flipping the Bird":
+                    @"The Bird":
                         @[@"┌∩┐(◕_◕)┌∩┐",
                           @"┌∩┐(◣_◢)┌∩┐",
                           @"( ︶︿︶)_╭∩╮",
@@ -1184,7 +1202,6 @@
                       @"⊂(◉‿◉)つ",
                       @"(づ￣ ³￣)づ",
                       @"⊂((・▽・))⊃",
-                      @"(づ｡◕‿‿◕｡)づ",
                       @"d=(´▽｀)=b"],
                       
                     @"Kissing":

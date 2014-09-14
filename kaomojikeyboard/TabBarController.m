@@ -18,6 +18,8 @@
     [super viewDidLoad];
     self.delegate = self;
     // Do any additional setup after loading the view.
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +35,7 @@
     [animation setTimingFunction:[CAMediaTimingFunction functionWithName:
                                   kCAMediaTimingFunctionEaseIn]];
     [self.view.window.layer addAnimation:animation forKey:@"fadeTransition"];
+    
 }
 
 /*- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {

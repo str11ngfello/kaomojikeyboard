@@ -765,7 +765,7 @@
         NSArray* favorites = [self.defaults objectForKey:@"FavoriteArray"];
         if ([favorites count] == 0)
         {
-            //do nothing
+            
         }
         else if (indexPath.row >= [favorites count])
         {

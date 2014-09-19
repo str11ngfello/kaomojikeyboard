@@ -303,6 +303,7 @@
     self.instructions.backgroundColor = [UIColor clearColor];
     self.instructions.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:14];
     self.instructions.editable = false;
+    self.instructions.selectable = false;
     [self.inputView addSubview:self.instructions];
     
     self.backButton = [UIButton buttonWithType:UIButtonTypeSystem];

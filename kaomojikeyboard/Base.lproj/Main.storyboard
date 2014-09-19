@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="H53-70-Qtg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A361c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="H53-70-Qtg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -199,6 +199,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enter-128.png" id="KnB-jt-owV" customClass="UIImageViewTinted">
+                                                    <rect key="frame" x="15" y="36" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="After customizing a new kaomoji, tap &quot;Save to Keyboard&quot;.  You can find saved kaomojis on the last page inside the keyboard. " lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="9" id="Uiw-Tb-2GP">
                                                     <rect key="frame" x="60" y="11" width="229" height="80"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -206,11 +211,6 @@
                                                     <color key="textColor" red="0.073607916280000005" green="0.400772872" blue="0.02578516065" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enter-128.png" id="KnB-jt-owV" customClass="UIImageViewTinted">
-                                                    <rect key="frame" x="15" y="36" width="30" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -219,21 +219,21 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Troubleshooting" id="wj9-LT-vdg">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gL4-an-oVO">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="145" id="gL4-an-oVO">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gL4-an-oVO" id="UhT-fU-hhk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="question-128.png" id="Bt5-8s-uGh" customClass="UIImageViewTinted">
-                                                    <rect key="frame" x="15" y="41" width="34" height="34"/>
+                                                    <rect key="frame" x="15" y="55" width="34" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.1137254902" green="0.61568627450000002" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="9" id="5yZ-7o-2Th">
-                                                    <rect key="frame" x="60" y="-6" width="241" height="129"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" minimumFontSize="9" id="5yZ-7o-2Th">
+                                                    <rect key="frame" x="60" y="8" width="241" height="129"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <string key="text">Favorites not showing up? Customized kaomojis not saving? Make sure you turn on "Allow Full Access" when adding the Kaomoji Keyboard in Settings.</string>
+                                                    <string key="text">Favorites not showing up? Customized kaomojis not saving? Make sure you turn on "Allow Full Access" in Settings &gt; General &gt; Keyboard &gt; Keyboards &gt; Kamoji Keyboard</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" red="0.073607916280000005" green="0.400772872" blue="0.02578516065" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>

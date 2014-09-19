@@ -29,7 +29,8 @@
 @property (nonatomic, strong) TOMSMorphingLabel* catLabel;
 @property (nonatomic, strong) TOMSMorphingLabel* statusLabel;
 @property (nonatomic, assign) bool canStartNewStatus;
-
+@property (nonatomic, strong) UITextView* instructions;
+@property (nonatomic, strong) UIButton* backButton;
 
 @end
 
@@ -78,9 +79,15 @@
             //If we are IN favorites, remove the kaomoji, otherwise add it
             NSMutableArray* favorites = [[self.defaults objectForKey:@"FavoriteArray"] mutableCopy];
             UILabel* l = (UILabel*)[cell viewWithTag:100];
+            if (!l)
+                return;
             
-            //stop if this is a padding cell
-            if ([l.text isEqualToString:@""])
+            //stop if this is a padding cell or a special cell
+            if ([l.text isEqualToString:@""] ||
+                [l.text containsString:@"No fav"] ||
+                [l.text containsString:@"No rec"] ||
+                [l.text containsString:@"No cus"]
+                )
                 return;
             
             //Add to favorites if it doesn't already exist
@@ -288,6 +295,24 @@
   
     [self.inputView addSubview:self.keyboardView];
     
+    
+    //Create instructions text view
+    self.instructions = [[UITextView alloc] initWithFrame:self.scrollView.frame];
+    self.instructions.hidden = true;
+    self.instructions.alpha = 0;
+    self.instructions.backgroundColor = [UIColor clearColor];
+    self.instructions.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:14];
+    self.instructions.editable = false;
+    [self.inputView addSubview:self.instructions];
+    
+    self.backButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.backButton setTitle:@"Back" forState:UIControlStateNormal];
+    [self.backButton addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.inputView addSubview:self.backButton];
+    self.backButton.hidden = true;
+    self.backButton.alpha = 0;
+    
+    
     [self.scrollView setNeedsDisplay];
     [self.scrollView setNeedsLayout];
     
@@ -345,6 +370,11 @@
     float spaceBarX = shareRect.origin.x+shareRect.size.width+3;
     [self.keyboardView.spaceButton setFrame:CGRectMake(spaceBarX,self.keyboardView.shareButton.frame.origin.y,deleteRect.origin.x-spaceBarX-3,40)];
     
+    self.instructions.frame = self.keyboardView.frame;
+    self.instructions.frame = CGRectInset(self.instructions.frame, 15, 15);
+    
+    self.backButton.frame = CGRectMake(0, 0, 100, 54);
+    self.backButton.center = CGPointMake(self.instructions.center.x,self.instructions.frame.origin.y+self.instructions.frame.size.height-8);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -549,12 +579,35 @@
         NSArray* favorites = [self.defaults objectForKey:@"FavoriteArray"];
         if ([favorites count] == 0)
         {
-            cell.textLabel.text = @"No favorites.\nTap and hold a kaomoji to add\nas a favorite.";
-            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+            cell.textLabel.text = @"No favorites.";
+            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16];
             if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
                 cell.textLabel.textColor = [UIColor lightGrayColor];
             else
                 cell.textLabel.textColor = [UIColor darkGrayColor];
+            if ([cell viewWithTag:101] != nil)
+            {
+                UIButton* b = (UIButton*)[cell viewWithTag:101];
+                [b setTitle:@"Learn More" forState:UIControlStateNormal];
+                [b setFrame:CGRectMake(0,0,80,44)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
+                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
+                b.hidden = false;
+            }
+            else
+            {
+                UIButton* b = [UIButton buttonWithType:UIButtonTypeSystem];
+                b.tag = 101;
+                b.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16];
+                [b setTitle:@"Learn More" forState:UIControlStateNormal];
+                [b setFrame:CGRectMake(0,0,80,44)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y)];
+                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:b];
+                b.hidden = false;
+            }
+            
+            
         }
         else
         {
@@ -567,6 +620,8 @@
                 cell.textLabel.textColor = [UIColor whiteColor];
             else
                 cell.textLabel.textColor = [UIColor blackColor];
+            if ([cell viewWithTag:101] != nil)
+                [cell viewWithTag:101].hidden = true;
 
         }
 
@@ -578,11 +633,33 @@
         if ([history count] == 0)
         {
             cell.textLabel.text = @"No recently used.";
-            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16];
             if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
                 cell.textLabel.textColor = [UIColor lightGrayColor];
             else
                 cell.textLabel.textColor = [UIColor darkGrayColor];
+            if ([cell viewWithTag:101] != nil)
+            {
+                UIButton* b = (UIButton*)[cell viewWithTag:101];
+                [b setTitle:@"Learn More" forState:UIControlStateNormal];
+                [b setFrame:CGRectMake(0,0,80,44)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
+                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
+                b.hidden = false;
+            }
+            else
+            {
+                UIButton* b = [UIButton buttonWithType:UIButtonTypeSystem];
+                b.tag = 101;
+                b.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16];
+                [b setTitle:@"Learn More" forState:UIControlStateNormal];
+                [b setFrame:CGRectMake(0,0,80,44)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y)];
+                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:b];
+                b.hidden = false;
+            }
+
 
         }
         else
@@ -596,6 +673,8 @@
                 cell.textLabel.textColor = [UIColor whiteColor];
             else
                 cell.textLabel.textColor = [UIColor blackColor];
+            
+            
         }
     }
     else if (collectionView.tag == self.emojiCategories.count-1)
@@ -604,12 +683,34 @@
         NSArray* customs = [self.defaults objectForKey:@"CustomArray"];
         if ([customs count] == 0)
         {
-            cell.textLabel.text = @"No custom kaomoji.\nUse the customizer to build one!";
-            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
+            cell.textLabel.text = @"No customized kaomoji.";
+            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16];
             if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
                 cell.textLabel.textColor = [UIColor lightGrayColor];
             else
                 cell.textLabel.textColor = [UIColor darkGrayColor];
+            if ([cell viewWithTag:101] != nil)
+            {
+                UIButton* b = (UIButton*)[cell viewWithTag:101];
+                [b setTitle:@"Learn More" forState:UIControlStateNormal];
+                [b setFrame:CGRectMake(0,0,80,44)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
+                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
+                b.hidden = false;
+            }
+            else
+            {
+                UIButton* b = [UIButton buttonWithType:UIButtonTypeSystem];
+                b.tag = 101;
+                b.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:16];
+                [b setTitle:@"Learn More" forState:UIControlStateNormal];
+                [b setFrame:CGRectMake(0,0,80,44)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y)];
+                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
+                [cell.contentView addSubview:b];
+                b.hidden = false;
+            }
+
             
         }
         else
@@ -759,7 +860,7 @@
     if ((collectionView.tag == 0 && [favorites count] == 0) ||
         (collectionView.tag == 1 && [history count] == 0) ||
         (collectionView.tag == self.emojiCategories.count-1 && [customs count] == 0))
-        return CGSizeMake(self.scrollView.frame.size.width,self.scrollView.frame.size.height);
+        return CGSizeMake(self.scrollView.frame.size.width,self.scrollView.frame.size.height-25);
     else
     {
         //Get Category
@@ -794,6 +895,60 @@
     }
 
 }
+
+-(void)backButton:(UIButton *)sender
+{
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.keyboardView.alpha = 1;
+                         self.instructions.alpha = 0;
+                         self.backButton.alpha = 0;
+                         
+                     } completion:^(BOOL finished) {
+                         self.instructions.hidden = true;
+                         self.backButton.hidden = true;
+                         self.keyboardView.hidden = false;
+
+                     }];
+
+}
+-(void)learnMore:(UIButton *)sender
+{
+    self.instructions.alpha = 0;
+    self.instructions.hidden = false;
+    self.backButton.alpha = 0;
+    self.backButton.hidden = false;
+    if (self.pageControl.currentPage == 0)
+    {
+        self.instructions.text = @"Make sure to turn on \"Allow Full Access\" in Settings > General > Keyboard > Keyboards > Kaomoji Keyboard. Without this enabled, favorites will not work!\n\nTap and hold a kaomoji to mark it as a favorite. To remove a favorite tap and hold it in the favorites list." ;
+    }
+    else if (self.pageControl.currentPage == 1)
+    {
+        self.instructions.text = @"Make sure to turn on \"Allow Full Access\" in Settings > General > Keyboard > Keyboards > Kaomoji Keyboard. Without this enabled, recently used will not work!\n\nThe recently used list shows the most recently used kaomojis." ;
+    }
+    else if (self.pageControl.currentPage == self.emojiCategories.count-1)
+    {
+        self.instructions.text = @"Make sure to turn on \"Allow Full Access\" in Settings > General > Keyboard > Keyboards > Kaomoji Keyboard. Without this enabled, customized kaomoji will not work!\n\nIn the Kaomoji Keyboard app, select \"Customizer\". Create something awesome and tap \"Save to Keyboard\". Your new kaomoji will appear here in the customized list." ;
+   }
+    
+    [UIView animateWithDuration:0.3
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         self.keyboardView.alpha = 0;
+                         self.instructions.alpha = 1;
+                         self.backButton.alpha = 1;
+                     } completion:^(BOOL finished) {
+
+                         self.keyboardView.hidden = true;
+                         
+                     }];
+
+
+}
+
 -(void)clear
 {
     //for (int i = 0;i < self.sizeOfLastEntry;++i)

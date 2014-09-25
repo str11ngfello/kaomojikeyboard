@@ -253,7 +253,10 @@
         self.catLabel.textColor = [UIColor whiteColor];
     else
         self.catLabel.textColor = [UIColor darkGrayColor];
-    self.catLabel.text = @"Favorites";
+    if ([self.defaults integerForKey:@"CurrentPage"] == 0)
+        self.catLabel.text = @"Favorites";
+    else
+        self.catLabel.text = @"";
     [self.view addSubview:self.catLabel];
  
     self.statusLabel = [[TOMSMorphingLabel alloc] initWithFrame:CGRectMake(160-75,-5,150,30)];
@@ -368,8 +371,16 @@
 
     CGRect shareRect = self.keyboardView.shareButton.frame;
     CGRect deleteRect = self.keyboardView.deleteButton.frame;
+    
+    float width = deleteRect.origin.x - (shareRect.origin.x+shareRect.size.width+3);
+    
     float spaceBarX = shareRect.origin.x+shareRect.size.width+3;
-    [self.keyboardView.spaceButton setFrame:CGRectMake(spaceBarX,self.keyboardView.shareButton.frame.origin.y,deleteRect.origin.x-spaceBarX-3,40)];
+    [self.keyboardView.spaceButton setFrame:CGRectMake(spaceBarX,self.keyboardView.shareButton.frame.origin.y,width*.6,40)];
+    
+    CGRect spaceRect = self.keyboardView.spaceButton.frame;
+    
+    float returnX = spaceRect.origin.x+spaceRect.size.width+3;
+    [self.keyboardView.returnButton setFrame:CGRectMake(returnX,self.keyboardView.shareButton.frame.origin.y,width*.4-6,40)];
     
     self.instructions.frame = self.keyboardView.frame;
     self.instructions.frame = CGRectInset(self.instructions.frame, 15, 15);
@@ -568,11 +579,11 @@
     static NSString * cellIdentifier = @"Cell";
     
     LDCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    if (!cell.backgroundView) {
-        UIView * backgroundView = [[UIView alloc] initWithFrame:cell.bounds];
-        cell.backgroundView = backgroundView;
+    //if (!cell.backgroundView) {
+    //    UIView * backgroundView = [[UIView alloc] initWithFrame:cell.bounds];
+    //    cell.backgroundView = backgroundView;
         
-    }
+    //}
     
     if (collectionView.tag == 0)
     {
@@ -592,7 +603,6 @@
                 [b setTitle:@"Learn More" forState:UIControlStateNormal];
                 [b setFrame:CGRectMake(0,0,80,44)];
                 [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
-                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
                 b.hidden = false;
             }
             else
@@ -645,7 +655,6 @@
                 [b setTitle:@"Learn More" forState:UIControlStateNormal];
                 [b setFrame:CGRectMake(0,0,80,44)];
                 [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
-                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
                 b.hidden = false;
             }
             else
@@ -696,7 +705,7 @@
                 [b setTitle:@"Learn More" forState:UIControlStateNormal];
                 [b setFrame:CGRectMake(0,0,80,44)];
                 [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
-                [b addTarget:self action:@selector(learnMore:) forControlEvents:UIControlEventTouchUpInside];
+                
                 b.hidden = false;
             }
             else
@@ -880,6 +889,7 @@
 
 -(void)addToHistory:(NSString*)emoji
 {
+    
     //Add to history
     NSMutableArray* history = [[self.defaults objectForKey:@"HistoryArray"] mutableCopy];
     if ([history count] > 250)

@@ -49,7 +49,9 @@
 - (IBAction)spaceBar:(id)sender {
     [self.keyboardViewController.textDocumentProxy insertText:@" "];
 }
-
+- (IBAction)returnButton:(id)sender {
+    [self.keyboardViewController.textDocumentProxy insertText:@"\n"];
+}
 - (void)deleteChar {
     [self.keyboardViewController.textDocumentProxy deleteBackward];
 

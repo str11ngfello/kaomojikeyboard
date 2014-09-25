@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *colorCycleButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *returnButton;
 @property (nonatomic, weak) IBOutlet UIButton* nextKeyboardButton;
 @property (nonatomic, weak) IBOutlet UIButton* clearButton;
 @property (nonatomic, strong) KeyboardViewController* keyboardViewController;

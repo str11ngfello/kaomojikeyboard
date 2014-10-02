@@ -1047,7 +1047,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "33cc5c63-9a2d-4c94-b6fc-ab6c461cb8f1";
+				PROVISIONING_PROFILE = "72385f74-c686-44c6-a2f7-5c4f0f9e663f";
 			};
 			name = Debug;
 		};
@@ -1085,7 +1085,7 @@
 				INFOPLIST_FILE = keyboardext/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5c49a580-896b-4512-9abf-fab0782d23df";
+				PROVISIONING_PROFILE = "d6834645-d2b5-434d-9204-00cdcafc77f2";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "";
 			};

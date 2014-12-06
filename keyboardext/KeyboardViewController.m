@@ -9,10 +9,102 @@
 #import "KeyboardViewController.h"
 #import "KeyboardView.h"
 #import "TOMSMorphingLabel.h"
+#import "UIView+Toast.h"
 
 
-#define SCROLL_VIEW_BOTTOM_PADDING 64
+#define SCROLL_VIEW_BOTTOM_PADDING 50
 #define CELL_HEIGHT 35
+
+
+
+
+@implementation StickyFlowLayout
+
+- (NSArray *) layoutAttributesForElementsInRect:(CGRect)rect {
+    
+    NSMutableArray *answer = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
+    UICollectionView * const cv = self.collectionView;
+    CGPoint const contentOffset = cv.contentOffset;
+    
+    NSMutableIndexSet *missingSections = [NSMutableIndexSet indexSet];
+    for (UICollectionViewLayoutAttributes *layoutAttributes in answer) {
+        if (layoutAttributes.representedElementCategory == UICollectionElementCategoryCell) {
+            [missingSections addIndex:layoutAttributes.indexPath.section];
+        }
+    }
+    for (UICollectionViewLayoutAttributes *layoutAttributes in answer) {
+        if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+            [missingSections removeIndex:layoutAttributes.indexPath.section];
+        }
+    }
+    
+    [missingSections enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:idx];
+        
+        UICollectionViewLayoutAttributes *layoutAttributes = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader atIndexPath:indexPath];
+        
+        [answer addObject:layoutAttributes];
+        
+    }];
+    
+    for (UICollectionViewLayoutAttributes *layoutAttributes in answer) {
+        
+        if ([layoutAttributes.representedElementKind isEqualToString:UICollectionElementKindSectionHeader]) {
+            
+            NSInteger section = layoutAttributes.indexPath.section;
+            NSInteger numberOfItemsInSection = [cv numberOfItemsInSection:section];
+            
+            NSIndexPath *firstCellIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+            NSIndexPath *lastCellIndexPath = [NSIndexPath indexPathForItem:MAX(0, (numberOfItemsInSection - 1)) inSection:section];
+            
+            NSIndexPath *firstObjectIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
+            NSIndexPath *lastObjectIndexPath = [NSIndexPath indexPathForItem:MAX(0, (numberOfItemsInSection - 1)) inSection:section];
+            
+            UICollectionViewLayoutAttributes *firstObjectAttrs;
+            UICollectionViewLayoutAttributes *lastObjectAttrs;
+            
+            if (numberOfItemsInSection > 0) {
+                firstObjectAttrs = [self layoutAttributesForItemAtIndexPath:firstObjectIndexPath];
+                lastObjectAttrs = [self layoutAttributesForItemAtIndexPath:lastObjectIndexPath];
+            } else {
+                firstObjectAttrs = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionHeader
+                                                                        atIndexPath:firstObjectIndexPath];
+                lastObjectAttrs = [self layoutAttributesForSupplementaryViewOfKind:UICollectionElementKindSectionFooter
+                                                                       atIndexPath:lastObjectIndexPath];
+            }
+            
+            CGFloat headerHeight = CGRectGetHeight(layoutAttributes.frame);
+            CGPoint origin = layoutAttributes.frame.origin;
+            origin.y = MIN(
+                           MAX(
+                               contentOffset.y + cv.contentInset.top,
+                               (CGRectGetMinY(firstObjectAttrs.frame) - headerHeight)
+                               ),
+                           (CGRectGetMaxY(lastObjectAttrs.frame) - headerHeight)
+                           );
+            
+            layoutAttributes.zIndex = 1024;
+            layoutAttributes.frame = (CGRect){
+                .origin = origin,
+                .size = layoutAttributes.frame.size
+            };
+            
+        }
+        
+    }
+    
+    return answer;
+    
+}
+
+- (BOOL) shouldInvalidateLayoutForBoundsChange:(CGRect)newBound {
+    
+    return YES;
+    
+}
+@end
+
 
 @interface KeyboardViewController ()
 @property (nonatomic, strong)KeyboardView* keyboardView;
@@ -26,15 +118,35 @@
 @property (nonatomic, strong) NSMutableDictionary* emojis;
 @property (nonatomic, assign) int sizeOfLastEntry;
 @property (nonatomic, strong) NSUserDefaults* defaults;
-@property (nonatomic, strong) TOMSMorphingLabel* catLabel;
-@property (nonatomic, strong) TOMSMorphingLabel* statusLabel;
-@property (nonatomic, assign) bool canStartNewStatus;
 @property (nonatomic, strong) UITextView* instructions;
 @property (nonatomic, strong) UIButton* backButton;
 
 @end
 
 @implementation KeyboardViewController
+
+
+-(BOOL)isOpenAccessGranted{
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *containerPath = [[fm containerURLForSecurityApplicationGroupIdentifier:@"group.com.seventhnight.kaomojikeyboard"] path];
+    NSError* err;
+    [fm contentsOfDirectoryAtPath:containerPath error:&err];
+    
+    if(err != nil){
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (void)setPageIndex:(int)index
+{
+    self.scrollView.contentOffset = CGPointMake(index*self.view.frame.size.width,0);
+    
+    NSDictionary* p = @{@"pageIndex":[NSNumber numberWithInteger:index]};
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PageSelected" object:self userInfo:p];
+}
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
@@ -50,16 +162,8 @@
     NSInteger page = lround(fractionalPage);
     self.pageControl.currentPage = page;
     
-    //if (![[self.emojiCategories objectAtIndex:page] isEqualToString:@"Favorites"] &&
-    //    ![[self.emojiCategories objectAtIndex:page] isEqualToString:@"Recent"])
-        self.catLabel.text = [self.emojiCategories objectAtIndex:page];
-    //else
-      //  self.catLabel.text = @"";
-
-    
     [self.defaults setInteger:page forKey:@"CurrentPage"];
     [self.defaults synchronize];
-
 }
 
 
@@ -97,22 +201,7 @@
                 [self.defaults setObject:favorites forKey:@"FavoriteArray"];
                 [self.defaults synchronize];
                 
-                if (self.canStartNewStatus)
-                {
-                    self.canStartNewStatus = false;
-                    self.pageControl.hidden = true;
-                    self.catLabel.hidden = true;
-                    self.statusLabel.text = @"removed from favorites";
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,1.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                        self.statusLabel.text = @"";
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                            self.pageControl.hidden = false;
-                            self.catLabel.hidden = false;
-                            self.canStartNewStatus = true;
-                            
-                        });
-                    });
-                }
+                [self.view makeToast:@"removed from favorites" duration:1 position:CSToastPositionBottom];
                 
                 //Refresh favorites collectionview
                 [((UICollectionView*)[self.categoryViews objectAtIndex:0]) reloadData];
@@ -135,23 +224,9 @@
                     [self.defaults setObject:favorites forKey:@"FavoriteArray"];
                     [self.defaults synchronize];
                     
-                    if (self.canStartNewStatus)
-                    {
-                        self.canStartNewStatus = false;
-                        self.pageControl.hidden = true;
-                        self.catLabel.hidden = true;
-                        self.statusLabel.text = @"added to favorites";
-                       
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,1.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                            self.statusLabel.text = @"";
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                                self.pageControl.hidden = false;
-                                self.catLabel.hidden = false;
-                                self.canStartNewStatus = true;
-                                
-                            });
-                        });
-                    }
+                    [self.view makeToast:@"added to favorites" duration:1 position:CSToastPositionBottom];
+                        
+
                     //Refresh favorites collectionview
                     [((UICollectionView*)[self.categoryViews objectAtIndex:0]) reloadData];
                     
@@ -159,23 +234,8 @@
                 }
                 else
                 {
-                    if (self.canStartNewStatus)
-                    {
-                        self.canStartNewStatus = false;
-                        self.pageControl.hidden = true;
-                        self.catLabel.hidden = true;
-                        self.statusLabel.text = @"already in favorites";
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW,1.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                            self.statusLabel.text = @"";
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-                                self.pageControl.hidden = false;
-                                self.catLabel.hidden = false;
-                                self.canStartNewStatus = true;
-                                
-                            });
-                        });
-                    }
-
+                    [self.view makeToast:@"already in favorites" duration:1 position:CSToastPositionBottom];
+                    
                 }
             }
         }
@@ -187,9 +247,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
     
-    self.canStartNewStatus = true;
-   self.automaticallyAdjustsScrollViewInsets = NO;
+    self.automaticallyAdjustsScrollViewInsets = NO;
      
     //Create shared defaults
     self.defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.com.seventhnight.kaomojikeyboard"];
@@ -230,10 +290,12 @@
     [self.keyboardView addSubview:scrollView];
     self.scrollView = scrollView;
     self.scrollView.pagingEnabled = YES;
+    self.scrollView.scrollEnabled = false;
     self.scrollView.contentSize = CGSizeMake(320 * 2, 158);
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.scrollsToTop = NO;
+    self.scrollView.backgroundColor = [UIColor whiteColor];
     self.scrollView.delegate = self;
     
 
@@ -243,46 +305,23 @@
     self.pageControl.currentPage = 0;
     self.pageControl.currentPageIndicatorTintColor = [UIColor darkGrayColor];
     self.pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    self.pageControl.hidden = true;
     [self.pageControl setAutoresizingMask: UIViewAutoresizingFlexibleBottomMargin |UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
+    
     [self.keyboardView addSubview:self.pageControl];
-    
-    
-    self.catLabel = [[TOMSMorphingLabel alloc] initWithFrame:CGRectMake(5,-4,100,30)];
-    self.catLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-    if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
-        self.catLabel.textColor = [UIColor whiteColor];
-    else
-        self.catLabel.textColor = [UIColor darkGrayColor];
-    if ([self.defaults integerForKey:@"CurrentPage"] == 0)
-        self.catLabel.text = @"Favorites";
-    else
-        self.catLabel.text = @"";
-    [self.view addSubview:self.catLabel];
- 
-    self.statusLabel = [[TOMSMorphingLabel alloc] initWithFrame:CGRectMake(160-75,-5,150,30)];
-    self.statusLabel.font =  [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-
-    [self.statusLabel setAutoresizingMask: UIViewAutoresizingFlexibleBottomMargin |UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-    if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
-        self.statusLabel.textColor = [UIColor whiteColor];
-    else
-        self.statusLabel.textColor = [UIColor darkGrayColor];
-    self.statusLabel.textAlignment = NSTextAlignmentCenter;
-    [self.keyboardView addSubview:self.statusLabel];
-
    
     self.categoryViews = [[NSMutableArray alloc] initWithCapacity:[self.emojiCategories count]];
     for (int i = 0;i < [self.emojiCategories count];++i)
     {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        ADLivelyCollectionView* colview = [[ADLivelyCollectionView alloc] initWithFrame:CGRectMake(i*320, 0, 320, 158) collectionViewLayout:layout];
-        
+        StickyFlowLayout *layout = [[StickyFlowLayout alloc] init];
+        UICollectionView* colview = [[UICollectionView alloc] initWithFrame:CGRectMake(i*320, 0, 320, 158) collectionViewLayout:layout];
+        colview.backgroundColor = [UIColor clearColor];
         [colview setDataSource:self];
         [colview setDelegate:self];
        
         [colview registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind: UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView"];
         [colview registerNib:[UINib nibWithNibName:@"LDCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"Cell"];
-        colview.initialCellTransformBlock = ADLivelyTransformHelix;
+        //colview.initialCellTransformBlock = ADLivelyTransformHelix;
         
         
         colview.tag = i;
@@ -326,9 +365,22 @@
     
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+    if ([self isOpenAccessGranted])
+        NSLog(@"OPEN ACCCES GREANTED!");
+    else
+    {
+        [self.view makeToast:@"Allow Full Access is not enabled in settings. This must be enabled for favorites, recent and customized kaomoji to work!" duration:5 position:CSToastPositionBottom];
+    }
+
+}
 -(void)viewDidLayoutSubviews {
     
     [super viewDidLayoutSubviews];
+    
+    
     
     int appExtensionWidth = (int)round(self.view.frame.size.width);
     int appExtensionHeight = (int)round(self.view.frame.size.height);
@@ -351,21 +403,25 @@
         self.keyboardView.frame = CGRectMake(0, 0, self.view.frame.size.width, appExtensionHeight);
         
     } else {*/
-        self.scrollView.frame = CGRectMake(0, 20, self.view.frame.size.width, appExtensionHeight - SCROLL_VIEW_BOTTOM_PADDING);
+        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.size.width, appExtensionHeight - SCROLL_VIEW_BOTTOM_PADDING);
         self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width * [self.emojiCategories count], appExtensionHeight - SCROLL_VIEW_BOTTOM_PADDING);
         self.keyboardView.frame = CGRectMake(0, 0, self.view.frame.size.width, appExtensionHeight);
     
-        self.scrollView.contentOffset = CGPointMake([self.defaults integerForKey:@"CurrentPage"]*self.view.frame.size.width,0);
+        [self setPageIndex:(int)[self.defaults integerForKey:@"CurrentPage"]];
     
     //}
 
     for (int i = 0;i < [self.emojiCategories count];++i)
     {
+        //Must do this here for sticky flow layout to not crash while switching between landscape/portrait
+        [((UICollectionView*)[self.categoryViews objectAtIndex:i]).collectionViewLayout invalidateLayout];
+        
+        
         CGRect frame = self.scrollView.frame;
         frame.origin.x = frame.size.width * i;
         frame.origin.y = 0;
-        ((ADLivelyCollectionView*)[self.categoryViews objectAtIndex:i]).frame = frame;
-        [((ADLivelyCollectionView*)[self.categoryViews objectAtIndex:i]) reloadData];
+        ((UICollectionView*)[self.categoryViews objectAtIndex:i]).frame = frame;
+        [((UICollectionView*)[self.categoryViews objectAtIndex:i]) reloadData];
         
     }
 
@@ -387,6 +443,17 @@
     
     self.backButton.frame = CGRectMake(0, 0, 100, 54);
     self.backButton.center = CGPointMake(self.instructions.center.x,self.instructions.frame.origin.y+self.instructions.frame.size.height-8);
+    
+    self.keyboardView.buttonTray.frame = CGRectMake(0,appExtensionHeight-50,appExtensionWidth,50);
+    float buttonWidth = appExtensionWidth/8.0;
+    self.keyboardView.globeButton.frame = CGRectMake(0, 0, buttonWidth, 50);
+    self.keyboardView.favoriteButton.frame = CGRectMake(buttonWidth*1, 0, buttonWidth, 50);
+    self.keyboardView.historyButton.frame = CGRectMake(buttonWidth*2, 0, buttonWidth, 50);
+    self.keyboardView.emotionButton.frame = CGRectMake(buttonWidth*3, 0, buttonWidth, 50);
+    self.keyboardView.actionButton.frame = CGRectMake(buttonWidth*4, 0, buttonWidth, 50);
+    self.keyboardView.characterButton.frame = CGRectMake(buttonWidth*5,0, buttonWidth, 50);
+    self.keyboardView.customizedButton.frame = CGRectMake(buttonWidth*6,0, buttonWidth, 50);
+    self.keyboardView.deleteButton.frame = CGRectMake(buttonWidth*7, 0, buttonWidth, 50);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -419,7 +486,7 @@
         UICollectionReusableView *reusableview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeaderView" forIndexPath:indexPath];
         
         if (reusableview==nil) {
-            reusableview=[[UICollectionReusableView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, 22)];
+            reusableview=[[UICollectionReusableView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, 17)];
             reusableview.autoresizesSubviews = true;
             reusableview.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         }
@@ -435,9 +502,9 @@
         
         if ([reusableview viewWithTag:100] == nil)
         {
-            UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, 22)];
+            UILabel *label=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, 17)];
             label.text= [subCategories objectAtIndex:indexPath.section];
-                        //label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.05];
+    
             label.textAlignment = NSTextAlignmentCenter;
             label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
             label.tag = 100;
@@ -446,13 +513,13 @@
             
             if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
             {
-                reusableview.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.2];
+                reusableview.backgroundColor = [UIColor darkGrayColor];//[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:1];
                 label.textColor = [UIColor whiteColor];
             }
             else
             {
-                reusableview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.05];
-                label.textColor = [UIColor darkGrayColor];
+                reusableview.backgroundColor = [UIColor darkGrayColor];//[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:1];
+                label.textColor = [UIColor whiteColor];
             }
 
             
@@ -471,7 +538,7 @@
 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    CGSize headerSize = CGSizeMake(self.scrollView.frame.size.width, 25);
+    CGSize headerSize = CGSizeMake(self.scrollView.frame.size.width, 18);
     return headerSize;
 }
 
@@ -602,7 +669,7 @@
                 UIButton* b = (UIButton*)[cell viewWithTag:101];
                 [b setTitle:@"Learn More" forState:UIControlStateNormal];
                 [b setFrame:CGRectMake(0,0,80,44)];
-                [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y)];
                 b.hidden = false;
             }
             else
@@ -654,7 +721,7 @@
                 UIButton* b = (UIButton*)[cell viewWithTag:101];
                 [b setTitle:@"Learn More" forState:UIControlStateNormal];
                 [b setFrame:CGRectMake(0,0,80,44)];
-                [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y)];
                 b.hidden = false;
             }
             else
@@ -704,7 +771,7 @@
                 UIButton* b = (UIButton*)[cell viewWithTag:101];
                 [b setTitle:@"Learn More" forState:UIControlStateNormal];
                 [b setFrame:CGRectMake(0,0,80,44)];
-                [b setCenter:CGPointMake(cell.center.x,cell.center.y-5)];
+                [b setCenter:CGPointMake(cell.center.x,cell.center.y)];
                 
                 b.hidden = false;
             }
@@ -764,6 +831,12 @@
     
     return cell;
 }
+
+
+ 
+
+
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -969,24 +1042,22 @@
 -(void)loadEmojis
 {
     //self.emojiCategories = @[@"Favorites",@"Recent",@"Faces",@"Actions",@"Hugs",@"Whatever",@"The Bird",@"Trolls",@"Table Flip",@"Phrases",@"Misc"];
-    self.emojiCategories = @[@"Favorites",@"Recent",@"Emotions",@"Actions",@"Characters",@"Phrases",@"Customized"];
+    self.emojiCategories = @[@"Favorites",@"Recent",@"Emotions",@"Actions",@"Characters",@"Customized"];
     //self.emojiColumnWidths = @[@200,@200,@100,@100,@200,@100,@120,@100,@200,@200,@200];
 
     self.emojiColumnWidths = @{@"Favorites":@[@200],
                                @"Recent":@[@200],
                                @"Emotions":@[@100,@100,@100,@100,@100,@100,@100],
-                               @"Actions":@[@100,@120,@120,@120,@120,@120,@200,@100,@200,@200],
+                               @"Actions":@[@100,@120,@120,@120,@120,@120,@200,@100,@200,@200,@200,@200,@50],
                                @"Characters":@[@120,@120,@120,@120,@120,@120,@120,@120,@120,@120],
-                               @"Phrases":@[@200],
                                @"Customized":@[@200],
                                };
     
     self.emojiSubCategories = @{@"Favorites":@[@"Favorite Kaomojis"],
                                 @"Recent":@[@"Recently Used"],
                                 @"Emotions":@[@"Happy",@"Sad",@"Angry",@"Love",@"Worried",@"Shocked",@"Annoyed"],
-                                @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"The Bird",@"Whatever",@"High Fiving",@"Table Flipping"],
+                                @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"The Bird",@"Whatever",@"High Fiving",@"Table Flipping",@"Phrases",@"Misc",@"Number Pad"],
                                 @"Characters":@[@"Rabbits",@"Cats",@"Dogs",@"Bears",@"Pigs",@"Monkeys",@"Devils",@"Zombies",@"Trolls",@"Flower Girls"],
-                                @"Phrases":@[@"Phrases"],
                                 };
                                 
     NSDictionary* lib = @{ @"Happy":
@@ -1445,8 +1516,21 @@
                       @"╰⋃╯ლ(´ڡ`ლ)",
                       @"( ◜◡＾)っ✂╰⋃╯",
                       
-                      ]
-                
+                      ],
+                @"Number Pad":
+                      @[@"1",
+                        @"2",
+                        @"3",
+                        @"4",
+                        @"5",
+                        @"6",
+                        @"7",
+                        @"8",
+                        @"9",
+                        @"0",
+                        @".",
+                        @","],
+                           
                     };
     
     

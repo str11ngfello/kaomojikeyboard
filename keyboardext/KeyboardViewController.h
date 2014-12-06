@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@interface StickyFlowLayout : UICollectionViewFlowLayout
 
+@end
 
 
 @interface KeyboardViewController : UIInputViewController <UIGestureRecognizerDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 -(void)clear;
+- (void)setPageIndex:(int)index;
 @end

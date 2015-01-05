@@ -470,7 +470,7 @@
     
     UIColor *textColor = nil;
     if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark) {
-        textColor = [UIColor whiteColor];
+        textColor = [UIColor blackColor];
     } else {
         textColor = [UIColor blackColor];
     }
@@ -695,7 +695,7 @@
                 cell.textLabel.text = [favorites objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:18];
             if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
-                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.textColor = [UIColor blackColor];
             else
                 cell.textLabel.textColor = [UIColor blackColor];
             if ([cell viewWithTag:101] != nil)
@@ -747,7 +747,7 @@
                 cell.textLabel.text = [history objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:18];
             if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
-                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.textColor = [UIColor blackColor];
             else
                 cell.textLabel.textColor = [UIColor blackColor];
             
@@ -798,7 +798,7 @@
                 cell.textLabel.text = [customs objectAtIndex:indexPath.row];
             cell.textLabel.font = [UIFont systemFontOfSize:18];
             if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
-                cell.textLabel.textColor = [UIColor whiteColor];
+                cell.textLabel.textColor = [UIColor blackColor];
             else
                 cell.textLabel.textColor = [UIColor blackColor];
         }
@@ -820,7 +820,7 @@
         else
             cell.textLabel.text = [emojiArray objectAtIndex:indexPath.row];
         if (self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark)
-            cell.textLabel.textColor = [UIColor whiteColor];
+            cell.textLabel.textColor = [UIColor blackColor];
         else
             cell.textLabel.textColor = [UIColor blackColor];
     }
@@ -1004,6 +1004,8 @@
     self.instructions.hidden = false;
     self.backButton.alpha = 0;
     self.backButton.hidden = false;
+    self.instructions.textColor = self.textDocumentProxy.keyboardAppearance == UIKeyboardAppearanceDark ? [UIColor whiteColor] : [UIColor blackColor];
+    
     if (self.pageControl.currentPage == 0)
     {
         self.instructions.text = @"Make sure to turn on \"Allow Full Access\" in Settings > General > Keyboard > Keyboards > Kaomoji Keyboard. Without this enabled, favorites will not work!\n\nTap and hold a kaomoji to mark it as a favorite. To remove a favorite tap and hold it in the favorites list." ;
@@ -1058,7 +1060,7 @@
                                 @"Emotions":@[@"Happy",@"Sad",@"Angry",@"Love",@"Worried",@"Shocked",@"Annoyed"],
                                 @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"The Bird",@"Whatever",@"High Fiving",@"Table Flipping",@"Phrases",@"Misc",@"Number Pad"],
                                 @"Characters":@[@"Rabbits",@"Cats",@"Dogs",@"Bears",@"Pigs",@"Monkeys",@"Devils",@"Zombies",@"Trolls",@"Flower Girls"],
-                                };
+                                @"Customized":@[@"Customized"]};
                                 
     NSDictionary* lib = @{ @"Happy":
                               @[@"(ʘ‿ʘ)",
@@ -1530,6 +1532,8 @@
                         @"0",
                         @".",
                         @","],
+                           
+                           
                            
                     };
     

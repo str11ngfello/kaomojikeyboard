@@ -125,7 +125,15 @@
 {
     [super viewWillAppear:animated];
 
-    self.tabBarController.tabBar.tintColor = [UIColor flatOrangeColorDark];
+    self.tabBarController.tabBar.tintColor = [UIColor orangeColor];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    
 }
 
 - (void)viewDidLoad {
@@ -197,6 +205,10 @@
         colview.tag = i;
         [self.categoryViews addObject:colview];
         [self.scrollView addSubview:colview];
+        
+        
+        
+      
         
 }
     
@@ -527,6 +539,8 @@
     if (self.emoji.text.length == 0)
         return;
     
+    [Flurry logEvent:@"CustomizerSave" withParameters:nil];
+    
     NSMutableArray* customs = [[self.defaults objectForKey:@"CustomArray"] mutableCopy];
     bool found = false;
     for (NSString* s in customs)
@@ -563,6 +577,8 @@
     }
     
 }
+
+
 
 - (IBAction)clear:(id)sender {
     self.leftFlare = @"";

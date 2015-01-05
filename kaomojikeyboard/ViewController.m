@@ -63,7 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.tabBar.tintColor = [UIColor flatPurpleColor];
+    self.tabBarController.tabBar.tintColor = [UIColor purpleColor];
     
     //First launch?
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"VideoStarted"])

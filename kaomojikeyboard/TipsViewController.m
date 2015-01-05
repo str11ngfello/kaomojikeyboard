@@ -43,7 +43,7 @@
 {
     [super viewWillAppear:animated];
     
-    self.tabBarController.tabBar.tintColor = [UIColor flatGreenColorDark];
+    self.tabBarController.tabBar.tintColor = [UIColor colorWithRed:0 green:.5 blue:0 alpha:1];
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

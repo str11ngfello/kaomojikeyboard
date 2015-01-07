@@ -563,7 +563,7 @@
             [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"SavedToKeyboardInformed"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Saved Kaomoji"
-                                                             message:@"You can find all your saved Kaomojis in the keyboard on the last page titled \"Customized\""
+                                                             message:@"You can find all your saved Kaomojis in the keyboard on the last page titled \"Customized / Extras\""
                                                             delegate:nil
                                                    cancelButtonTitle:@"OK"
                                                    otherButtonTitles: nil];

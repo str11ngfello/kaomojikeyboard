@@ -12,6 +12,8 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+#import <SystemConfiguration/SystemConfiguration.h>
+
 #import "AFNetworking.h"
 #import "SVProgressHUD.h"
 #import "UIActionSheet+Blocks.h"
@@ -26,5 +28,4 @@
 #import <VungleSDK/VungleSDK.h>
 #import "RMStore.h"
 #import "PDKeychainBindings.h"
-
 #endif

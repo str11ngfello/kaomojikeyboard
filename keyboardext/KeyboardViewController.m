@@ -1060,7 +1060,7 @@
                                 @"Emotions":@[@"Happy",@"Sad",@"Angry",@"Love",@"Worried",@"Shocked",@"Annoyed"],
                                 @"Actions":@[@"Flexing",@"Dancing",@"Hugging",@"Kissing", @"Winking",@"Waving",@"The Bird",@"Whatever",@"High Fiving",@"Table Flipping",@"Phrases",@"Misc",@"Number Pad"],
                                 @"Characters":@[@"Rabbits",@"Cats",@"Dogs",@"Bears",@"Pigs",@"Monkeys",@"Devils",@"Zombies",@"Trolls",@"Flower Girls"],
-                                @"Customized":@[@"Customized"]};
+                                @"Customized":@[@"Customized / Extras"]};
                                 
     NSDictionary* lib = @{ @"Happy":
                               @[@"(ʘ‿ʘ)",

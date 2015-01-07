@@ -8,6 +8,7 @@
 
 #import "ExtrasViewController.h"
 #import "ExtraCell.h"
+#import "AppDelegate.h"
 
 @interface ExtrasViewController()
 @property (nonatomic, strong) NSUserDefaults* defaults;
@@ -24,6 +25,8 @@
     [[VungleSDK sharedSDK] setDelegate:self];
     [FlurryAds fetchAdForSpace:@"MainSpace" frame:self.view.frame size:FULLSCREEN];
 
+    [[RMStore  defaultStore] addStoreObserver:self];
+    
     
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -101,6 +104,20 @@
    
     if (toggle.isOn)
     {
+        //Must be connected to the internet to add emoji
+        AppDelegate* ad = [[UIApplication sharedApplication] delegate];
+        
+        if (![ad isNetworkAvailable]) {
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"No Internet Connection"
+                                                             message:@"Please make sure you have a valid internet connection and try again!"
+                                                            delegate:nil
+                                                   cancelButtonTitle:@"OK"
+                                                   otherButtonTitles: nil];
+            [alert show];
+            return;
+        }
+
+        
         bool found = false;
         for (NSString* s in customs)
         {
@@ -116,13 +133,14 @@
             [customs insertObject:self.kaomojis[toggle.tag] atIndex:0];
             [self.defaults setObject:customs forKey:@"CustomArray"];
             [self.defaults synchronize];
+            [Flurry logEvent:@"ExtraKaomojiAdded" withParameters:nil];
             [SVProgressHUD showSuccessWithStatus:@"Kaomoji Added!"];
             if (![[NSUserDefaults standardUserDefaults] boolForKey:@"SavedExtraToKeyboardInformed"])
             {
                 [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"SavedExtraToKeyboardInformed"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
                 UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Kaomoji Added"
-                                                                 message:@"You can find extra Kaomojis in the keyboard on the last page titled \"Customized\""
+                                                                 message:@"You can find extra Kaomojis in the keyboard on the last page titled \"Customized / Extras\""
                                                                 delegate:nil
                                                        cancelButtonTitle:@"OK"
                                                        otherButtonTitles: nil];
@@ -130,18 +148,33 @@
                 
             }
             
-            if ([Chartboost hasInterstitial:CBLocationHomeScreen])
-            {
-                [Chartboost showInterstitial:CBLocationHomeScreen];
-            }
-            else
-            {
-                NSLog(@"Chartboost not ready!");
-                [Chartboost cacheInterstitial:CBLocationHomeScreen];
-                
-                [AdColony playVideoAdForZone:@"vzbe2e9221a80046a8a5" withDelegate:self];
-            }
+            
+            
+            PDKeychainBindings *bindings = [PDKeychainBindings sharedKeychainBindings];
 
+            long actionCount = [[bindings objectForKey:@"nagActionCount"] integerValue];
+            long nagActionCount = [[ad.configFile objectForKey:@"nagActionCount"] integerValue];
+            actionCount++;
+            [bindings setObject:[NSString stringWithFormat:@"%ld",actionCount] forKey:@"nagActionCount"];
+            
+            
+
+            if ([bindings objectForKey:@"removeads"] == nil && actionCount >= nagActionCount)
+            {
+                [bindings setObject:@"0" forKey:@"nagActionCount"];
+                
+                if ([Chartboost hasInterstitial:CBLocationHomeScreen])
+                {
+                    [Chartboost showInterstitial:CBLocationHomeScreen];
+                }
+                else
+                {
+                    NSLog(@"Chartboost not ready!");
+                    [Chartboost cacheInterstitial:CBLocationHomeScreen];
+                    
+                    [AdColony playVideoAdForZone:@"vzbe2e9221a80046a8a5" withDelegate:self];
+                }
+            }
             
         }
         else
@@ -225,4 +258,58 @@
     
 }
 
+-(void)storePaymentTransactionFinished:(NSNotification*)notification
+{
+    if (notification && notification.userInfo)
+    {
+        if ([notification.userInfo[@"productIdentifier"] isEqualToString:@"seventhnight.kaomojikeyboard.removeads"])
+        {
+            NSLog(@"Transaction finished %@",notification.userInfo[@"productIdentifier"]);
+            PDKeychainBindings *bindings = [PDKeychainBindings sharedKeychainBindings];
+            [bindings setObject:@"1" forKey:@"removeads"];
+        }
+    }
+    
+}
+
+
+- (IBAction)restorePurchasesPressed:(id)sender {
+      [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions){
+          NSLog(@"Purchases finished restoring");
+          UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Thank you!"
+                                                           message:@"Your previous purchases have been restored."
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles: nil];
+          [alert show];
+
+     } failure:^(NSError *error) {
+     NSLog(@"Something went wrong while restoring purchases");
+     }];
+
+}
+
+- (IBAction)removeAdsPressed:(id)sender {
+    
+    PDKeychainBindings *bindings = [PDKeychainBindings sharedKeychainBindings];
+   
+    AppDelegate* ad = [[UIApplication sharedApplication] delegate];
+    
+    if ([bindings objectForKey:@"removeads"] == nil)
+    {
+        
+        SKProduct* p = (SKProduct*)[ad.iapProducts objectAtIndex:0];
+        [[RMStore defaultStore] addPayment:p.productIdentifier success:^(SKPaymentTransaction *transaction) {
+            
+            
+            
+            NSLog(@"Product purchased");
+        } failure:^(SKPaymentTransaction *transaction, NSError *error) {
+            
+            
+            NSLog(@"Something went wrong with purchase");
+        }];
+    }
+
+}
 @end

@@ -134,48 +134,104 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 
+    bool firstLaunch = false;
+    application.applicationIconBadgeNumber = 0;
+    
+    //********************************************************************************
+    //AppInit
+    //********************************************************************************
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstRunEver"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"FirstRunEver"];
+        [[NSUserDefaults standardUserDefaults] setBool:false forKey:@"askedForRating"];
+        firstLaunch = true;
+    }
+    
     PDKeychainBindings *bindings = [PDKeychainBindings sharedKeychainBindings];
     
-   /* NSSet *products = [NSSet setWithArray:@[@"seventhnight.kaomojikeyboard.removeads"]];
+    NSSet *products = [NSSet setWithArray:@[@"seventhnight.kaomojikeyboard.removeads"]];
     [[RMStore defaultStore] requestProducts:products success:^(NSArray *products, NSArray *invalidProductIdentifiers) {
         
         self.iapProducts = [products mutableCopy];
     
-        if ([bindings objectForKey:@"removeads"] == nil)
-        {
-        
-            SKProduct* p = (SKProduct*)[self.iapProducts objectAtIndex:0];
-            [[RMStore defaultStore] addPayment:p.productIdentifier success:^(SKPaymentTransaction *transaction) {
-                
-               
-                [bindings setObject:@"1" forKey:@"removeads"];
-                
-                NSLog(@"Product purchased");
-            } failure:^(SKPaymentTransaction *transaction, NSError *error) {
-                
-          
-                NSLog(@"Something went wrong with purchase");
-            }];
-        }
-        
     } failure:^(NSError *error) {
         NSLog(@"Couldn't load store products");
     }];
-*/
 
-  /*  [[RMStore defaultStore] restoreTransactionsOnSuccess:^(NSArray *transactions){
-        NSLog(@"Purchases restored");
-    } failure:^(NSError *error) {
-        NSLog(@"Something went wrong while restoring purchases");
-    }];*/
-    
+
+     
     NSLog(@"removeads = %@",[bindings objectForKey:@"removeads"]);
 
     
+    [self performSelectorInBackground:@selector(initConfigFile:) withObject:[NSNumber numberWithBool:firstLaunch]];
+    
 }
+
+
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+
+- (void) initConfigFile:(NSNumber*)firstLaunch
+{
+    self.configFile = [[NSDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:@"https://www.dropbox.com/s/ndkbo0512mx8wvn/kk_config.plist?raw=1"]];
+    if (_configFile)
+    {
+        //Announcement?
+        if (![firstLaunch boolValue] && [[_configFile objectForKey:@"showAnnouncement"] boolValue])
+        {
+            //Have we shown this announcement before
+            if ([_configFile objectForKey:@"announcementText"] != nil && ![[_configFile objectForKey:@"announcementText"] isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"LastAnnouncementText"]])
+            {
+                NSArray *lineParts = nil;
+                lineParts = [[_configFile objectForKey:@"announcementText"] componentsSeparatedByString: @"|"];
+                if ([lineParts count] == 5)
+                {
+                    [[NSUserDefaults standardUserDefaults] setObject:[lineParts objectAtIndex:4] forKey:@"AnnouncementConfirmURL"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[lineParts objectAtIndex:0] message:[lineParts objectAtIndex:1] delegate:self cancelButtonTitle:[lineParts objectAtIndex:2] otherButtonTitles:[lineParts objectAtIndex:3], nil];
+                        alert.tag = 3000;
+                        [alert show];
+                    });
+                }
+                else if ([lineParts count] == 4)
+                {
+                    [[NSUserDefaults standardUserDefaults] setObject:[lineParts objectAtIndex:3] forKey:@"AnnouncementConfirmURL"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[lineParts objectAtIndex:0] message:[lineParts objectAtIndex:1] delegate:self cancelButtonTitle:[lineParts objectAtIndex:2] otherButtonTitles:nil];
+                        alert.tag = 3000;
+                        [alert show];
+                    });
+                }
+                
+            }
+            [[NSUserDefaults standardUserDefaults] setObject:[_configFile objectForKey:@"announcementText"] forKey:@"LastAnnouncementText"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+    
+    
+}
+
+-(bool)isNetworkAvailable
+{
+    SCNetworkReachabilityFlags flags;
+    SCNetworkReachabilityRef address = SCNetworkReachabilityCreateWithName(NULL, "www.apple.com" );
+    Boolean success = SCNetworkReachabilityGetFlags(address, &flags);
+    CFRelease(address);
+    
+    bool canReachOnExistingConnection =     success
+    && !(flags & kSCNetworkReachabilityFlagsConnectionRequired)
+    && (flags & kSCNetworkReachabilityFlagsReachable);
+    
+    return canReachOnExistingConnection;
 }
 
 

@@ -20,6 +20,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSMutableArray* iapProducts;
+@property (strong, nonatomic) NSDictionary* configFile;
+
+-(bool)isNetworkAvailable;
 
 @end
 

@@ -1,7 +1,7 @@
 # Kaomoji Keyboard
 
 > [!CAUTION]
-> This is a sample application for a custom keyboard for iOS built in Objective-C. It's outdated, and I'm not maintaining it. I'm publishing on Github 
+> This is a very old application for a custom keyboard for iOS built in Objective-C. I'm not maintaining it. I'm publishing on Github for educational purposes.
 
 ![Screenshot](/kaomojikeyboard/Images.xcassets/AppIcon.appiconset/Icon180.png)
 
